@@ -4,3 +4,4 @@
 # Vim
 *.swp
 *.swo
+.Rproj.user
