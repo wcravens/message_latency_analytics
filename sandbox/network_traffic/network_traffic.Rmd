@@ -1,0 +1,81 @@
+---
+title: "Sample Network Traffic"
+author: "Wes Cravens"
+date: "6/23/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+  options(max.print=1000000)
+  library( tidyverse )
+```
+
+## Import Raw Network Event Data
+
+```{r}
+  raw_network_event_timestamp <- round( scan( "../sample_data/network_traffic_event_timestamps.txt" ), digits=10 )
+```
+## Calculate Leaky Integrator Value per event
+
+```{r}
+leaky_integrator <- numeric( length( raw_network_event_timestamp ) )
+leaky_integrator[0] <- 1
+
+alpha_decay <- 60
+
+theta <- 1.0
+for ( i in 2:length(leaky_integrator ) ) {
+  delta_t = (raw_network_event_timestamp[i] - raw_network_event_timestamp[i-1])
+  leaky_integrator[i] = max( leaky_integrator[i-1] + theta - delta_t * alpha_decay, 0 )
+}
+```
+
+## Plot some stuff
+```{r}
+
+x_Values <- 1:length(raw_network_event_timestamp )
+raw_Values <- raw_network_event_timestamp
+data <- data.frame( x_Values, raw_Values )
+x <- x_Values
+ggplot( data.frame(raw_Values ), aes(x=raw_Values, y=0) ) + geom_point(size = 1)  +
+  scale_color_manual(values = unname(colours)) + 
+  theme(
+    panel.background = element_blank(),
+    axis.text = element_blank(),
+    axis.ticks = element_blank(),
+    axis.title.x = element_text()
+  )
+   
+
+#  stripchart( raw_network_event_timestamp )
+```
+```{r}
+plot( leaky_integrator )
+```
+
+## Extract timestamps and coerse itegers
+```{r}
+  event_time <- unlist( round( raw_network_event_timestamp, 0 ) )
+  event_time
+```
+
+
+
+```{r}
+  stripchart( event_time )
+```
+
+## Calculate inter-event time 
+
+```{r}  
+  increment_time <- diff( event_time )
+
+  stripchart( increment_time )
+```
+
+## Nothing suprising here...
+```{r}  
+  hist( increment_time )
+```
+
