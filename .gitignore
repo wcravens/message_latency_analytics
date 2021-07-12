@@ -4,4 +4,8 @@
 # Vim
 *.swp
 *.swo
+
+# R Studio
 .Rproj.user
+.Rhistory
+
