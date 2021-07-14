@@ -1,13 +1,13 @@
 ---
+title: "Notes"
 output: html_notebook
-
-html_document: 
-  toc: yes
-  number_sections: yes
+# html_document:
+#   toc: yes
+#   number_sections: yes
+#   df_print: paged
 ---
 
-# Scratch pad notes that need to be integrated into other documents
-
+Scratch pad notes that need to be integrated into other documents
 
 ## Reference Manaagers
 
