@@ -3,9 +3,10 @@ title: "Data Provenence"
 author: "Wes Cravens"
 date: "7/12/2021"
 output: 
-  html_document: 
-    toc: yes
-    number_sections: yes
+  html_notebook
+#   html_document: 
+#     toc: yes
+#     number_sections: yes
 ---
 
 ```{r setup, include=FALSE}
