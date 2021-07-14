@@ -54,4 +54,11 @@ See `PDSwR2...` 11.4 for popular Knitr Options.
     results
     tidy
 
+```{ r dataprep }
+infile <- "Data/eqfa-msgw-in-0709.txt.gz"
+paste( 'checked at', data() )
+system( paste( 'shasum', infile ), intern = TRUE )
+eqfa_msgw_data <- read.table( infile, header = FALSE, sep = "," )
+```
+
 
