@@ -1,0 +1,21 @@
+---
+title: "TODO Ledger"
+output: html_notebook
+---
+
+# TODO Ledger
+
+
+## R Markdown
+
+Interdocument Links
+Citation references
+
+## Knitr
+
+Bookdown
+Build Directory
+Build Targets
+
+## Models
+[Lesson_12 Linear filters for 1-D time-series](http://www.mbfys.ru.nl/~robvdw/DGCN22/PRACTICUM_2011/LABS_2011/ALTERNATIVE_LABS/Lesson_12.html)

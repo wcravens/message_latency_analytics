@@ -1,0 +1,45 @@
+---
+output: html_notebook
+
+html_document: 
+  toc: yes
+  number_sections: yes
+---
+
+# Scratch pad notes that need to be integrated into other documents
+
+
+## Reference Manaagers
+
+- [Mendeley](https://www.mendeley.com/download-desktop-new/)
+
+A Mendeley account is required. You can sign up in Mendeley Desktop or at www.mendeley.com.
+
+- Jabref
+
+    wcravens@albus:~/Repos/MSFE-IE522_Statistical_Methods_Summer_Project$ apt-cache search jabref
+    jabref - graphical frontend to manage BibTeX and BibLaTeX databases
+
+- [Zotero](https://www.zotero.org/download/)
+
+  - Desktop app
+  - and Chrome Connector
+  - https://retorque.re/zotero-better-bibtex/installation/
+  
+[Ubunto Launcher Installation](https://www.zotero.org/support/installation)
+
+## Data Provenance
+
+[PWSwR2 Buzz Data Notes](sandbox/PDSwR2/Buzz/buzzzm.md)
+
+[Repo Package](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5314482/)
+
+[Using Introspection to Collect Provenance in R](https://www.mdpi.com/2227-9709/5/1/12/pdf)
+
+## R Markdown
+
+https://stackoverflow.com/questions/43820483/difference-between-r-markdown-and-r-notebook
+
+## Process Modelling
+
+[Time Series Segmentation](https://en.wikipedia.org/wiki/Time-series_segmentation)
