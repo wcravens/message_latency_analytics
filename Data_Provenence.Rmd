@@ -1,0 +1,56 @@
+---
+title: "Data Provenence"
+author: "Wes Cravens"
+date: "7/12/2021"
+output: 
+  html_document: 
+    toc: yes
+    number_sections: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## PDSwR2 Chap 11 Documenation and Deployment
+
+### Internal Project Documenation
+
+Stated Goals, where data came from, techniques tried.
+Assume intimate project knowledge from the reader.
+Emphasize exceptional or surprise issues; these are the expesive things to re-learn.
+
+### Project Milestone or Checkpoint Documentation
+
+Force yourself to redux things in a clean working environment to prove reliability and produce documentation.
+
+### Scientific Documentation
+
+Ideal standard of scientific research to distribute reproducable work in the form of our R Markdown files.  Allows anyone to re-run the entire procedures for the project to demonstrate replicability.
+
+Mix with vigorous version control repository flow management and discipline.
+
+- Keep code in sync with documentation
+- Keep results in sync with data
+- Handing off correct work to others
+
+1. Write an R Markdown document that combines code to be executes and text to be formatted.
+2. Document is execute or rendered
+3. Sharable document that combines text, code and execution results (including plots and graphs).
+
+### Knitr
+
+Block Declaration Format
+
+Use `\`\`\`` in Markdown and `<<` in LaTex.
+
+See `PDSwR2...` 11.4 for popular Knitr Options.
+
+    cache
+    echo
+    eval
+    message
+    results
+    tidy
+
+
