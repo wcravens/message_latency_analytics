@@ -5,17 +5,24 @@ output: html_notebook
 
 # TODO Ledger
 
-
 ## R Markdown
 
-Interdocument Links
-Citation references
+[] Inter document Links [Note](./Notes.html)
+
+[] Figure out Bibtex [Citations](https://bookdown.org/yihui/bookdown/citations.html)
 
 ## Knitr
 
-Bookdown
-Build Directory
-Build Targets
+[] Skim Bookdown Text for Relevant Sections to Study](https://bookdown.org/)
+
+[] Configure Knitr/R Markdown to use 'Build' Directory
+
+## Data
+
+[] Identify suitable place to store source data for posterity.
+[] Identify SHA fingerprint method for data files.
+[] Set standard for documenting how to source original data; Database queries, Scripts, etc.  Document for people knowledgeable with the project and systems that are available.  For public data, document for a very general audience with explicit instructions.
 
 ## Models
-[Lesson_12 Linear filters for 1-D time-series](http://www.mbfys.ru.nl/~robvdw/DGCN22/PRACTICUM_2011/LABS_2011/ALTERNATIVE_LABS/Lesson_12.html)
+
+[] Study [Lesson_12 Linear filters for 1-D time-series](http://www.mbfys.ru.nl/~robvdw/DGCN22/PRACTICUM_2011/LABS_2011/ALTERNATIVE_LABS/Lesson_12.html)
