@@ -7,7 +7,12 @@ output: html_notebook
 
 ## R Markdown
 
-[] Inter document Links [Note](./Notes.html)
+[x] Inter document Links [Note](./Notes.html)
+  [] Configure Interdocument Links, Master 'index'
+  [] Incorporate a Table of Contents
+  [] Investigate Build targets for different documents and reports
+    [] Create a Global index
+    [] Create a Master Report File
 
 [] Figure out Bibtex [Citations](https://bookdown.org/yihui/bookdown/citations.html)
 
