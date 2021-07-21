@@ -36,6 +36,11 @@ A Mendeley account is required. You can sign up in Mendeley Desktop or at www.me
 
 [Using Introspection to Collect Provenance in R](https://www.mdpi.com/2227-9709/5/1/12/pdf)
 
+MLOps
+AWS Glue
+
+[DVC](./DVC_Notes.Rmd)
+
 ## R Markdown
 
 https://stackoverflow.com/questions/43820483/difference-between-r-markdown-and-r-notebook
@@ -43,3 +48,6 @@ https://stackoverflow.com/questions/43820483/difference-between-r-markdown-and-r
 ## Process Modelling
 
 [Time Series Segmentation](https://en.wikipedia.org/wiki/Time-series_segmentation)
+
+## Provenance
+
