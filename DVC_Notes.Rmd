@@ -1,29 +1,26 @@
-MLOps
-AWS Glue
+## [Install DVC](https://dvc.org/doc/install)
+
+    pip install dvc 'dvc[gdrive]'
+
+## Contributors will need to pull the dvc data
+
+    dvc pull
+
+## Original Initialization of dvc in the current git project repository.
+
+    dvc init
+    dvc add Data
+    dvc remote add -d msfe_ie522_summer_project_data	gdrive://1zvK5a6L978aK1TPVHUOnGIYmAO6a53Yg
+    dvc push
+
+DVC will then give you a URL to visit to provide access to the Google Drive.  Configure accordingly.
+![Google Drive Permissions](./Images/DVC_Google_Drive_Access.png)
 
 ## Other Refrences
+
+[GDrive Configuration](https://dvc.org/doc/user-guide/setup-google-drive-remote#url-format)
 
 [Dagshub](https://dagshub.com/?utm_source=google&utm_medium=cpc&utm_campaign=search-data-science-github&utm_id=13291698713&gclid=CjwKCAjwi9-HBhACEiwAPzUhHIIv_SSd30EWaP0rEXboIEYTBMrndXCd_OnaosaYOBMmx7idAD7J6RoCBn4QAvD_BwE)
 
 
 decompress: https://dvc.org/doc/command-reference/run
-
-https://drive.google.com/drive/folders/1zvK5a6L978aK1TPVHUOnGIYmAO6a53Yg?usp=sharing
-
-https://developers.google.com/identity/protocols/oauth2
-
-
-## [Install DVC](https://dvc.org/doc/install)
-
-    pip install dvc 'dvc[gdrive]'
-
-## Initialize dvc
-dvc init
-
-dvc add [DATAFILE]
-https://dvc.org/doc/user-guide/setup-google-drive-remote#url-format
-dvc remote add msfe_ie522_summer_project_data	gdrive://1zvK5a6L978aK1TPVHUOnGIYmAO6a53Yg
-dvc push
-
-
-

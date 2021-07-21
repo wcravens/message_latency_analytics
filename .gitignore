@@ -17,3 +17,6 @@ scratch
 
 # build
 *.html
+
+# DVC
+/Data
