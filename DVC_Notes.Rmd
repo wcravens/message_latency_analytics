@@ -6,6 +6,10 @@
 
     dvc pull
 
+## After a git chekcout or pull that impacts data
+
+    dvc checkout
+
 ## Original Initialization of dvc in the current git project repository.
 
     dvc init
