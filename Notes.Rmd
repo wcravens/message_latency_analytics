@@ -9,7 +9,7 @@ output: html_notebook
 
 Scratch pad notes that need to be integrated into other documents
 
-## Reference Manaagers
+## Bibtex Reference Managers
 
 - [Mendeley](https://www.mendeley.com/download-desktop-new/)
 
