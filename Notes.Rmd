@@ -46,7 +46,9 @@ A Mendeley account is required. You can sign up in Mendeley Desktop or at www.me
 
 AWS Glue
 
+## DevOps
 
+See [Auto DevOps pipeline](https://gitlab.engr.illinois.edu/wbc3/msfe-ie522-statistical-methods-summer-project/-/settings/ci_cd) in Gitlab.
 
 ## R Markdown
 
