@@ -2,12 +2,7 @@
 title: "MSFE-IE522 Statistical Methods Summer Project"
 author: "Wes Cravens"
 date: "7/12/2021"
-output: html_document
 ---
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
 
 ## Project Synopsis
 
