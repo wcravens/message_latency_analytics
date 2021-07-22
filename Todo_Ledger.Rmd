@@ -14,6 +14,13 @@ output: html_notebook
     [] Create a Global index
     [] Create a Master Report File
 
+## Metalsmith
+
+[] Metalsmith getting started tutorial/s
+[] Initialize a metalsmith site for project documentation.
+
+## Bibtex
+
 [] Figure out Bibtex [Citations](https://bookdown.org/yihui/bookdown/citations.html)
 
 ## Knitr
@@ -24,8 +31,10 @@ output: html_notebook
 
 ## Data
 
-[] Identify suitable place to store source data for posterity.
-[] Identify SHA fingerprint method for data files.
+[-] Identify suitable place to store source data for posterity.
+[-] Identify SHA fingerprint method for data files.
+[x] Setup [DVC](https://dvc.org/)
+
 [] Set standard for documenting how to source original data; Database queries, Scripts, etc.  Document for people knowledgeable with the project and systems that are available.  For public data, document for a very general audience with explicit instructions.
 
 ## Models
