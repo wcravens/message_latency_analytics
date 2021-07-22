@@ -28,7 +28,7 @@ A Mendeley account is required. You can sign up in Mendeley Desktop or at www.me
   
 [Ubunto Launcher Installation](https://www.zotero.org/support/installation)
 
-## Data Provenance
+## Data Provenance and Governance
 
 [PWSwR2 Buzz Data Notes](sandbox/PDSwR2/Buzz/buzzzm.md)
 
@@ -44,11 +44,17 @@ A Mendeley account is required. You can sign up in Mendeley Desktop or at www.me
 
 [MLOps](https://en.wikipedia.org/wiki/MLOps)
 
+[MLflow](https://mlflow.org/)
+
+[SnakeMake](https://snakemake.readthedocs.io/en/stable/)
+
 AWS Glue
 
 ## DevOps
 
 See [Auto DevOps pipeline](https://gitlab.engr.illinois.edu/wbc3/msfe-ie522-statistical-methods-summer-project/-/settings/ci_cd) in Gitlab.
+
+[CML Continuous Machine Learning](https://cml.dev/)
 
 ## R Markdown
 

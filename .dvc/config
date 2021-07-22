@@ -1,4 +1,5 @@
 [core]
     remote = msfe_ie522_summer_project_data
+    analytics = false
 ['remote "msfe_ie522_summer_project_data"']
     url = gdrive://1zvK5a6L978aK1TPVHUOnGIYmAO6a53Yg
