@@ -1,0 +1,18 @@
+{
+  "name": "doc",
+  "version": "1.0.0",
+  "description": "Metalsmith generator for project documentation.",
+  "main": "forge.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Wes Cravens",
+  "license": "MIT",
+  "devDependencies": {
+    "jstransformer-handlebars": "^1.1.0",
+    "metalsmith": "^2.3.0",
+    "metalsmith-browser-sync": "^1.1.1",
+    "metalsmith-layouts": "^2.3.1",
+    "metalsmith-markdown": "^1.3.0"
+  }
+}

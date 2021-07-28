@@ -1,6 +1,6 @@
 ---
-title: "TODO Ledger"
-output: html_notebook
+title: "Todo"
+author: "Wes Cravens"
 ---
 
 # TODO Ledger
