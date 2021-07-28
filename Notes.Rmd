@@ -66,3 +66,4 @@ https://stackoverflow.com/questions/43820483/difference-between-r-markdown-and-r
 
 ## Provenance
 
+[Organizing / Modularizing R Souce Code]( https://cran.r-project.org/web/packages/modules/vignettes/modulesAsFiles.html )
