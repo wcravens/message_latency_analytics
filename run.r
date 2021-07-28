@@ -23,11 +23,13 @@ msgw_in$delta_t <- as.double( msgw_in$t0 - data.table::shift( msgw_in$t0, n=1, f
 latency_in_ms <- as.numeric( msgw_in$`PNQM Latency (ms)` )
 latency_null_to_zero <- latency_in_ms[ is.na(latency_in_ms) ] <- 0
 latency_in_ns <- latency_in_ms * 1e6
-msgw_in$t_exit <- msgw_in$t0 + latency_in_ns 
+msgw_in$latency_ns <- latency_in_ns
+msgw_in$t_exit <- msgw_in$t0 + msgw_in$latency_ns 
 print( paste( "Data covers ", max( msgw_in$t0), 'ns' ) )
 print( paste( "Data covers ", max( msgw_in$t0)/1e6, 'ms' ) )
 print( paste( "Data covers ", max( msgw_in$t0)/1e9, 'sec' ) )
 print( paste( "Data covers ", max( msgw_in$t0)/1e9/60, 'min' ) )
+
 
 # Our data covers ~30 minutes.
 hist( msgw_in$t0, breaks=30*60*100)
