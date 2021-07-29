@@ -2,6 +2,11 @@
 title: "MSFE-IE522 Statistical Methods Summer Project"
 author: "Wes Cravens"
 date: "7/12/2021"
+output:
+  html_document:
+    toc: yes
+    number_sections: yes
+    df_print: paged
 ---
 
 ## Project Synopsis
