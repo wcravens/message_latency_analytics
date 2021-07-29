@@ -22,7 +22,8 @@ msgw_in$message_processing_time_ns <- tmp
 
 msgw_in$message_exit_t_ns = msgw_in$message_arrival_t_ns + msgw_in$message_processing_time_ns
 
-hist( msgw_in$message_arrival_t_ns, breaks=30*60*100 )
+30*60*100
+hist( as.numeric( msgw_in$message_arrival_t_ns) , breaks=180000 )
 
 # TODO
 # Calculate Queue Size
@@ -93,3 +94,24 @@ cox.stuart.test( d2 )
 difference.sign.test( d2 )
 acf( d2 ) 
 pacf( d2 )
+?split
+stripchart( as.numeric( msgw_in$message_arrival_t_ns[ msgw_in$message_arrival_t_ns < 1 * 60 * 1e12] ) )
+
+numeric_arrival_times <- as.numeric( msgw_in$message_arrival_t_ns )
+hist( numeric_arrival_times, breaks = 30*60*100 )
+stripchart( numeric_arrival_times )
+
+arrival_times_slice_labels <- cut( numeric_arrival_times, breaks=30*60, labels=F, include.lowest=T )
+arrival_time_slices <- data.frame( numeric_arrival_times, arrival_times_slice_labels )
+par(mfrow=c( 30, 1 ), mai=c(0.1, 0.1, 0.1, 0.1) )
+loop_count <- 1:30
+for( i in loop_count ){
+  stripchart( arrival_time_slices$numeric_arrival_times[ arrival_time_slices$arrival_times_slice_labels == i * 60 ], method="stack", pch=19, cex=0.5, col="blue", xlab=NULL, ylab=NULL, main=NULL, axes=F )
+}
+
+## hawkes
+# https://cran.r-project.org/web/packages/hawkesbow/index.html
+# https://cran.r-project.org/web/packages/hawkesbow/hawkesbow.pdf
+# https://search.r-project.org/CRAN/refmans/hawkes/html/simulateHawkes.html
+
+# Play with histogram bin count to maximize the min->max bin count
