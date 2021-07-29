@@ -2,6 +2,7 @@
 title: "MSFE-IE522 Statistical Methods Summer Project"
 author: "Wes Cravens"
 date: "7/12/2021"
+bibliography: "Bibtex/Mendeley.bib"
 output:
   html_document:
     toc: yes
