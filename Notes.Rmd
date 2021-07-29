@@ -87,3 +87,5 @@ See [Auto DevOps pipeline](https://gitlab.engr.illinois.edu/wbc3/msfe-ie522-stat
 [Practical Data Science with R - Buzz](https://github.com/WinVector/PDSwR2/tree/main/Buzz)
 
 [ggplot2](https://ggplot2.tidyverse.org/)
+
+[UIUC Themes for R Markdown](https://rdrr.io/cran/uiucthemes/)
