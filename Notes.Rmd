@@ -42,6 +42,8 @@ A Mendeley account is required. You can sign up in Mendeley Desktop or at www.me
 
 [renv Package Dependency Version manager](https://cran.rstudio.com/web/packages/renv/index.html)
 
+[RStudio Introduction to renv](https://rstudio.github.io/renv/articles/renv.html)
+
 ## Data Management, Governance and Provenance
 
 [DVC](https://dvc.org),  [DVC Notes](./DVC_Notes.Rmd)
