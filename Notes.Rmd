@@ -26,6 +26,8 @@ A Mendeley account is required. You can sign up in Mendeley Desktop or at www.me
 
 ## Experiment Management & R Code Organization
 
+[“A reproducible workflow” by Ignasi Bartomeus and Francisco Rodríguez-Sánchez](https://youtu.be/s3JldKoA0zw)
+
 [Reproducible Research](https://cran.rstudio.com/web/views/ReproducibleResearch.html)
 
 [Organizing / Modularizing R Souce Code]( https://cran.r-project.org/web/packages/modules/vignettes/modulesAsFiles.html )
@@ -79,6 +81,9 @@ See [Auto DevOps pipeline](https://gitlab.engr.illinois.edu/wbc3/msfe-ie522-stat
 
 [R Markdown Book](https://bookdown.org/yihui/rmarkdown/)
 
+[Bookdown package](https://bookdown.org/yihui/bookdown/)
+
+[Bookdown](https://bookdown.org/yihui/rmarkdown/books.html#books)
 [Practical Data Science with R - Buzz](https://github.com/WinVector/PDSwR2/tree/main/Buzz)
 
 [ggplot2](https://ggplot2.tidyverse.org/)
