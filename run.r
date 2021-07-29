@@ -115,3 +115,5 @@ for( i in loop_count ){
 # https://search.r-project.org/CRAN/refmans/hawkes/html/simulateHawkes.html
 
 # Play with histogram bin count to maximize the min->max bin count
+
+# [Sequential Event Interval Analysis ](https://rdrr.io/cran/eventInterval/man/eventInterval-package.html)
