@@ -7,6 +7,8 @@
 - [ ] Bibtex integration into R Markdown/Bookdown
 - [ ] Bibtex references throughout R Markdown/Bookdown
 - [ ] Reading List, reference groups, priorities and Bibtex
+- [ ] Identify periodic 'publication' documents needed on a project (e.g. Meeting Minutes/Outcomes, Work log, project metrics, etc)
+- [ ] Status update / report on current state of the project
 
 ## Backlog
 - [ ] Evaluate need for run time Data Provenance and appropriate tooling.
