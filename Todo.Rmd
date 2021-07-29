@@ -10,9 +10,9 @@ output:
 ## In Progress
 - [x] [R Markdown, Bookdown and Knitr](https://bookdown.org/yihui/rmarkdown/)
 - [x] Bibtex integration into R Markdown/Bookdown
-- [ ] Factor away the lib file for unzipping data
+- [x] Setup renv for project
+- [x] Factor away the lib file for unzipping data
 - [ ] Convert run.r to an R Notebook
-- [ ] Setup renv for project
 - [ ] Setup targets for the project
 - [ ] Implement  [knitr's code externalization](https://yihui.org/knitr/demo/externalization/) for `lib` and `run.r`
 
