@@ -26,20 +26,25 @@ A Mendeley account is required. You can sign up in Mendeley Desktop or at www.me
 
 ## Experiment Management & R Code Organization
 
-[“A reproducible workflow” by Ignasi Bartomeus and Francisco Rodríguez-Sánchez](https://youtu.be/s3JldKoA0zw)
-
 [Reproducible Research](https://cran.rstudio.com/web/views/ReproducibleResearch.html)
+
+[R Targets Pipeline Management](https://books.ropensci.org/targets/)
+
+[Repo R Data Manager](https://cran.rstudio.com/web/packages/repo/vignettes/index.html)
+
+[rrtools for Research Compendium](https://github.com/benmarwick/rrtools)
+
+[Use of an R package to facilitate reproducible research](https://github.com/ropensci/rrrpkg)
 
 [Organizing / Modularizing R Souce Code]( https://cran.r-project.org/web/packages/modules/vignettes/modulesAsFiles.html )
 
-[Design of Experiments (DoE) & Analysis of Experimental Data](https://cran.rstudio.com/web/views/ExperimentalDesign.html)
-
 [Tidyverse](https://www.tidyverse.org/)
+
+[renv Package Dependency Version manager](https://cran.rstudio.com/web/packages/renv/index.html)
 
 ## Data Management, Governance and Provenance
 
-[DVC](https://dvc.org)
-[DVC Notes](./DVC_Notes.Rmd)
+[DVC](https://dvc.org),  [DVC Notes](./DVC_Notes.Rmd)
 
 [Practical Data Science with R](https://github.com/WinVector/PDSwR2/blob/main/Buzz/buzzm.md)
 
@@ -77,6 +82,8 @@ See [Auto DevOps pipeline](https://gitlab.engr.illinois.edu/wbc3/msfe-ie522-stat
 
 ## Project Management, Documentation and Visualization
 
+[Big Book of R](https://www.bigbookofr.com/index.html)
+
 [R Markdown](https://rmarkdown.rstudio.com/)
 
 [R Markdown Book](https://bookdown.org/yihui/rmarkdown/)
@@ -99,3 +106,5 @@ See [Auto DevOps pipeline](https://gitlab.engr.illinois.edu/wbc3/msfe-ie522-stat
 [Open-Source Data Science Masters](http://datasciencemasters.org/)
 
 [OSDSM focussing on R](https://github.com/datasciencemasters/go/blob/master/r-resources.md)
+
+[A Methodology for Agile Data Science](https://edwinth.github.io/ADSwR/a-methodology-for-agile-data-science.html)
