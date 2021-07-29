@@ -84,8 +84,18 @@ See [Auto DevOps pipeline](https://gitlab.engr.illinois.edu/wbc3/msfe-ie522-stat
 [Bookdown package](https://bookdown.org/yihui/bookdown/)
 
 [Bookdown](https://bookdown.org/yihui/rmarkdown/books.html#books)
+
+[Building Academic Websites using blogdown](https://support.rbind.io/2017/06/16/academic-site-apreshill/)
+
+[R distill - Package for building websites](https://rstudio.github.io/distill/)
 [Practical Data Science with R - Buzz](https://github.com/WinVector/PDSwR2/tree/main/Buzz)
 
 [ggplot2](https://ggplot2.tidyverse.org/)
 
 [UIUC Themes for R Markdown](https://rdrr.io/cran/uiucthemes/)
+
+[Developing Good Research Habbits](https://github.com/robjhyndman/ResearchHabits/raw/master/ResearchHabits.pdf)[Github](https://github.com/wcravens/ResearchHabits)
+
+[Open-Source Data Science Masters](http://datasciencemasters.org/)
+
+[OSDSM focussing on R](https://github.com/datasciencemasters/go/blob/master/r-resources.md)
