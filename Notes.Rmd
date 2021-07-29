@@ -28,6 +28,15 @@ A Mendeley account is required. You can sign up in Mendeley Desktop or at www.me
   
 [Ubunto Launcher Installation](https://www.zotero.org/support/installation)
 
+## Experiment Management
+
+[Reproducible Research](https://cran.rstudio.com/web/views/ReproducibleResearch.html)
+
+[Design of Experiments (DoE) & Analysis of Experimental Data](https://cran.rstudio.com/web/views/ExperimentalDesign.html)
+
+
+
+
 ## Data Provenance and Governance
 
 [PWSwR2 Buzz Data Notes](sandbox/PDSwR2/Buzz/buzzzm.md)
