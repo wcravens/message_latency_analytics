@@ -1,55 +1,53 @@
 ---
 title: "Notes"
-output: html_notebook
-# html_document:
-#   toc: yes
-#   number_sections: yes
-#   df_print: paged
+output:
+  html_document:
+    toc: yes
+    number_sections: yes
+    df_print: paged
 ---
 
 Scratch pad notes that need to be integrated into other documents
 
 ## Bibtex Reference Managers
 
-- [Mendeley](https://www.mendeley.com/download-desktop-new/)
+1. [Mendeley](https://www.mendeley.com/download-desktop-new/)
 
-A Mendeley account is required. You can sign up in Mendeley Desktop or at www.mendeley.com.
+A Mendeley account is required. You can sign up in Mendeley Desktop or at www.mendeley.com.  Uses a Chrome extension for web capture and syncs through the mendeley account.
 
-- Jabref
+2. Jabref
 
-    wcravens@albus:~/Repos/MSFE-IE522_Statistical_Methods_Summer_Project$ apt-cache search jabref
-    jabref - graphical frontend to manage BibTeX and BibLaTeX databases
-
-- [Zotero](https://www.zotero.org/download/)
+3. [Zotero](https://www.zotero.org/download/)
 
   - Desktop app
   - and Chrome Connector
   - https://retorque.re/zotero-better-bibtex/installation/
-  
-[Ubunto Launcher Installation](https://www.zotero.org/support/installation)
+  - [Ubunto Launcher Installation](https://www.zotero.org/support/installation)
 
-## Experiment Management
+## Experiment Management & R Code Organization
 
 [Reproducible Research](https://cran.rstudio.com/web/views/ReproducibleResearch.html)
 
+[Organizing / Modularizing R Souce Code]( https://cran.r-project.org/web/packages/modules/vignettes/modulesAsFiles.html )
+
 [Design of Experiments (DoE) & Analysis of Experimental Data](https://cran.rstudio.com/web/views/ExperimentalDesign.html)
 
+[Tidyverse](https://www.tidyverse.org/)
 
-
-
-## Data Provenance and Governance
-
-[PWSwR2 Buzz Data Notes](sandbox/PDSwR2/Buzz/buzzzm.md)
-
-[Repo Package](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5314482/)
-
-[Using Introspection to Collect Provenance in R](https://www.mdpi.com/2227-9709/5/1/12/pdf)
-
-[DataLad](https://www.datalad.org/)
+## Data Management, Governance and Provenance
 
 [DVC](https://dvc.org)
-
 [DVC Notes](./DVC_Notes.Rmd)
+
+[Practical Data Science with R](https://github.com/WinVector/PDSwR2/blob/main/Buzz/buzzm.md)
+
+[Repo R Package](https://cran.r-project.org/web/packages/repo/vignettes/index.html)
+
+[Using Introspection to Collect Provenance in R - RDataTracker](https://www.mdpi.com/2227-9709/5/1/12/pdf) 
+
+[In defense of decentralized research data management](https://www.degruyter.com/document/doi/10.1515/nf-2020-0037/html)
+
+[DataLad](https://www.datalad.org/)
 
 [MLOps](https://en.wikipedia.org/wiki/MLOps)
 
@@ -57,22 +55,30 @@ A Mendeley account is required. You can sign up in Mendeley Desktop or at www.me
 
 [SnakeMake](https://snakemake.readthedocs.io/en/stable/)
 
-AWS Glue
+[AWS Glue](https://aws.amazon.com/glue)
+
+[AWS Glue DataBrew](https://aws.amazon.com/glue/features/databrew/)
 
 ## DevOps
 
-See [Auto DevOps pipeline](https://gitlab.engr.illinois.edu/wbc3/msfe-ie522-statistical-methods-summer-project/-/settings/ci_cd) in Gitlab.
+[Gitlab](https://about.gitlab.com/)
+
+[Google Colab](https://colab.research.google.com/)
+
+See [Auto DevOps pipeline](https://gitlab.engr.illinois.edu/wbc3/msfe-ie522-statistical-methods-summer-project/-/settings/ci_cd) in UIUC Gitlab.
 
 [CML Continuous Machine Learning](https://cml.dev/)
-
-## R Markdown
-
-https://stackoverflow.com/questions/43820483/difference-between-r-markdown-and-r-notebook
 
 ## Process Modelling
 
 [Time Series Segmentation](https://en.wikipedia.org/wiki/Time-series_segmentation)
 
-## Provenance
+## Project Management, Documentation and Visualization
 
-[Organizing / Modularizing R Souce Code]( https://cran.r-project.org/web/packages/modules/vignettes/modulesAsFiles.html )
+[R Markdown](https://rmarkdown.rstudio.com/)
+
+[R Markdown Book](https://bookdown.org/yihui/rmarkdown/)
+
+[Practical Data Science with R - Buzz](https://github.com/WinVector/PDSwR2/tree/main/Buzz)
+
+[ggplot2](https://ggplot2.tidyverse.org/)
