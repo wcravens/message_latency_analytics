@@ -12,7 +12,10 @@ output:
 - [x] Bibtex integration into R Markdown/Bookdown
 - [x] Setup renv for project
 - [x] Factor away the lib file for unzipping data
-- [ ] Convert run.r to an R Notebook
+- [x] Add CSV Schema for our input data csv files
+- [x] Convert run.r to an R Notebook
+- [ ] Move contents of README into a Report notebook
+- [ ] Add Contribution and Project setup instructions to the README
 - [ ] Setup targets for the project
 - [ ] Implement  [knitr's code externalization](https://yihui.org/knitr/demo/externalization/) for `lib` and `run.r`
 
