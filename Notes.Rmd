@@ -46,6 +46,8 @@ A Mendeley account is required. You can sign up in Mendeley Desktop or at www.me
 
 ## Data Management, Governance and Provenance
 
+[CSV Schema Language](https://digital-preservation.github.io/csv-schema/csv-schema-1.2.html)
+
 [DVC](https://dvc.org),  [DVC Notes](./DVC_Notes.Rmd)
 
 [Practical Data Science with R](https://github.com/WinVector/PDSwR2/blob/main/Buzz/buzzm.md)
