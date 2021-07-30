@@ -4,42 +4,43 @@ output: html_notebook
 ---
 
 ```{r}
-if (!require("pacman"))
-  install.packages("pacman")
-pacman::p_load(pacman, rio, modules, data.table, bit64, dplyr, ggplot2, psych, randtests, eventInterval )
+#pacman::p_load(pacman, rio, modules, data.table, bit64, dplyr, ggplot2, psych, randtests, eventInterval )
 #p_unload( all )
+library( tidyverse )
 ```
 
+## Import `msgw_in` data from csv source.
+```{r}
+.msgw_in_import <- rio::import( "./Data/eqfa-msgw-in-0709.txt", format="csv", setclass="tibble" )
+```
 
-## Build working data frame
+## Prepare working data
 
-- Normalize message arrival timestamp to start series at 0
+- Normalize message arrival time-stamp to start series at $t_0 = 0$.
 - Calculate inter_message_delta_t in nanoseconds
 - Convert latency/processing time to nanoseconds
-- Convert latency/processing time to nanoseconds and replace nulls w/ 0
 - Calculate message exit time in nanoseconds
 
 ```{r}
-.msgw_in <- rio::import( "./Data/eqfa-msgw-in-0709.txt" )
-
-msgw_in <- cbind.data.frame(
-  # Normalize Timestamps to start at T0
-  "message_arrival_t_ns"  = .msgw_in$ts_ns - first( .msgw_in$ts_ns )
+t0 = first(.msgw_in_import$ts_ns)
+msgw_in <- tibble( 
+  message_arrival_t_ns = as.numeric( .msgw_in_import$ts_ns - t0 ),
+  inter_message_delta_t_ns = message_arrival_t_ns - lag( message_arrival_t_ns, default=first(message_arrival_t_ns) ),
+  message_processing_delta_t_ns = as.numeric( na_if( .msgw_in_import$"PNQM Latency (ms)", "null" ) ) * 1e6,
+  message_exit_t_ns = message_arrival_t_ns + message_processing_delta_t_ns,
+  message_type = .msgw_in_import$`Msg Type`
 )
-# Calculate inter message delta_t
-msgw_in$inter_message_delta_t_ns <-  as.numeric( msgw_in$message_arrival_t_ns
-      - shift( msgw_in$message_arrival_t_ns, n=1, fill=NA, type="lag" ) )
-msgw_in$inter_message_delta_t_ns[is.na( msgw_in$inter_message_delta_t_ns)] <- 0
-
-# Convert latency/processing time to nanoseconds and replace nulls w/ 0
-tmp <- as.numeric( .msgw_in$`PNQM Latency (ms)` ) * 1e6
-tmp[is.na(tmp)] <- 0
-msgw_in$message_processing_time_ns <- tmp
-
-msgw_in$message_exit_t_ns = msgw_in$message_arrival_t_ns + msgw_in$message_processing_time_ns
 ```
 
-## Reduce our data down to just a couple of minutes
+## Remove incomplete records and duplicated arrival times.
+
+We need to gain some understanding of how the source data is generated.  These 'missing' values may or may not make sense.  For now we just remove them to make progress on the mathematics.
+```{r}
+msgw_in <- msgw_in %>%
+  filter( !is.na( message_processing_delta_t_ns ))
+```
+
+## Reduce data down to just a couple of minutes
 ```{r}
 msgw_in_trunc <- msgw_in[ msgw_in$message_arrival_t_ns < 1.2e11, ]
 ```
@@ -48,14 +49,11 @@ Successfully loaded `r nrow( msgw_in_trunc )` observations over the first two mi
 
 ## Move this stuff to a Verification or Analysis Rmd
 ```{r}
-num_arrival_time <- as.numeric( msgw_in_trunc$message_arrival_t_ns )
+hist( msgw_in_trunc$message_arrival_t_ns, breaks=120, col="blue", xlab = "Message Arrival Time in ns over the first two minutes of data.", main="Histogram of Message Arrival Times (bin count = 120)" )
 
-hist( num_arrival_time, breaks=120, col="blue", xlab = "Message Arrival Time in ns over the first two minutes of data.", main="Histogram of Message Arrival Times (bin count = 120)" )
+plot( msgw_in_trunc$message_arrival_t_ns, msgw_in_trunc$inter_message_delta_t_ns, col="blue", xlab="Message Arrival Time in ns", ylab="Inter-Message Delta_t in ns", main="Inter-message delta_t against Message Arrival Time" )
 
-plot( num_arrival_time, msgw_in_trunc$inter_message_delta_t_ns, col="blue", xlab="Message Arrival Time in ns", ylab="Inter-Message Delta_t in ns", main="Inter-message delta_t against Message Arrival Time" )
-
-stripchart( num_arrival_time, method="stack", pch=19, cex=0.5, col="blue", xlab="Message Arrival Time in ns", main="1-D Stripchart of Message Arrival Time" )
-
+stripchart( msgw_in_trunc$message_arrival_t_ns, method="stack", col="blue", xlab="Message Arrival Time in ns", main="1-D Stripchart of Message Arrival Time" )
 ```
 
 # TODO

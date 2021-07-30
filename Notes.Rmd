@@ -52,6 +52,7 @@ A Mendeley account is required. You can sign up in Mendeley Desktop or at www.me
 
 [Practical Data Science with R](https://github.com/WinVector/PDSwR2/blob/main/Buzz/buzzm.md)
 
+[R for Data Science](https://r4ds.had.co.nz/)
 [Repo R Package](https://cran.r-project.org/web/packages/repo/vignettes/index.html)
 
 [Using Introspection to Collect Provenance in R - RDataTracker](https://www.mdpi.com/2227-9709/5/1/12/pdf) 
