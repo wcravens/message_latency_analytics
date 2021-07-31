@@ -14,10 +14,15 @@ output:
 - [x] Factor away the lib file for unzipping data
 - [x] Add CSV Schema for our input data csv files
 - [x] Convert run.r to an R Notebook
+- [x] Clean up initial data prep
+- [.] Normalize on Tidyverse libraries/packages
+- [ ] Setup [targets](https://books.ropensci.org/targets) for the project
+- [ ] Compare data tracking methods between `target`, `repo` and `dvc`.
+- [ ] Add initial data prep target
+- [ ] Register resulting data prep data (with dvc or other manager) along with a smaller testing/dev subset (for speed)
 - [ ] Move contents of README into a Report notebook
 - [ ] Add Contribution and Project setup instructions to the README
-- [ ] Setup targets for the project
-- [ ] Implement  [knitr's code externalization](https://yihui.org/knitr/demo/externalization/) for `lib` and `run.r`
+- [ ] Refactor project structure into a standard Repeatable Research model.
 
 ## Next 
 - [ ] Bibtex references throughout R Markdown/Bookdown; Global option for bibliography?
@@ -28,7 +33,6 @@ output:
 - [ ] Try and fit a hawkes process to our event data
 - [ ] Explore histogram bin count to maximize delta between min and max count
 - [ ] Calculate running msg queue size
-- [ ] Normalize on Tidyverse libraries/packages
 - [ ] Learn ggplot2
 
 ## Backlog
@@ -37,6 +41,7 @@ output:
 - [ ] Documentation and Reporting Standard Operating Procedures for DS/ML Projects
 
 ## Done
+- [abort] Implement  [knitr's code externalization](https://yihui.org/knitr/demo/externalization/) for `lib` and `run.r`
 - [x] Start outline of best practices, needs and methodologies
 - [x] Reference Manager App Evaluations (Jabref, Mendeley, Zotero)
   - Mendeley seems to have been the one I've stuck with so far.
