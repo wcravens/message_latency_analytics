@@ -4,11 +4,12 @@ output: html_notebook
 ---
 
 ```{r include=FALSE} 
-# Other Modules we may want later ggplot2, psych, randtests, eventInterval
+# Other Modules we may want later ggplot2, randtests, eventInterval
 library( tibble )
 library( dplyr )
 library( rio )
 library( bit64 )
+library( psych )
 ```
 
 # Import Data from File
@@ -16,21 +17,21 @@ library( bit64 )
 ## Import message data from csv source.
 ```{r}
 .msgw_in_import <- rio::import( "./Data/eqfa-msgw-in-0709.txt", format="csv" )
-# View(.msgw_in_import)
+.msgw_in_import
 ```
 
 # Prepare input data
- - Remove "PartyDetailsDefinitionRequest" Messages (they all have duplicate arrival times _and_ `null` processing time)
-- Normalize event `t_start` at $t_0 = 0$ Method: $t_i = t_i - t_0 \mbox{ for } i=0,...,n$.
+
+- Remove "PartyDetailsDefinitionRequest" Messages (they all have duplicate arrival times _and_ `null` processing time)
+- Normalize event `arrival_t` at $t_0 = 0$ Method: $t_i = t_i - t_0 \mbox{ for } i=0,...,n$.
 - Spread out messages with duplicate arrival times; Method: $t_i = t_i + k \mbox{ for } i = 0,...,n \mbox{ for } k=0..d$ where $d = $ number of duplicates at $t_i$ 
 - Calculate inter-message `delta_t` in nanoseconds
 - Convert latency/processing time `PNQM Latency (ms)` to `duration` in nanoseconds
 - Use `Msg Type` as new factor `type`
-- Calculate message exit time `t_end` in nanoseconds
+- Calculate message exit time `departure_t` in nanoseconds
 
 ```{r}
 input_limit <- 1.2e11 # Two minutes in ns
-print( paste( "Input is Monotonic: ", all(.msgw_in_import$ts_ns == cummax(.msgw_in_import$ts_ns) ) ) )
 
 event_data <- .msgw_in_import %>%
   filter( !`Msg Type` %in% c( "PartyDetailsDefinitionRequest" ) ) %>%
@@ -48,43 +49,52 @@ event_data <- .msgw_in_import %>%
   select( t, duration, type, dup_count, dup_number ) %>%
   ungroup() %>%
   arrange( t ) %>%
-  mutate( t_start = t + dup_number, delta_t = t_start - lag(t_start), t_end = t_start + duration ) %>%
-  select( t_start, delta_t, type, duration, t_end )
+  mutate( arrival_t = t + dup_number, delta_t = arrival_t - lag(arrival_t), departure_t = arrival_t + duration ) %>%
+  select( arrival_t, delta_t, type, duration, departure_t )
 
-str( event_data )
+event_data
 ```
-
-Successfully loaded `r nrow( event_data )` observations over the first $input_limit$ nanoseconds of our event data.
+Input data arrival time is Monotonic: `r all(.msgw_in_import$ts_ns == cummax(.msgw_in_import$ts_ns) )`.
+Successfully loaded `r nrow( event_data )` observations from the first $input_limit$ nanoseconds of our event data.
 
 ## Vizualizations against Event Time 
 ```{r}
-hist( as.numeric( event_data$t_start ), breaks=120, col="blue", xlab = "Event Time in ns over the first two minutes of data.", main="Histogram of Event Freq per Sec" )
+hist( as.numeric( event_data$arrival_t ), breaks=120, col="blue", xlab = "Event Time in ns over the first two minutes of data.", main="Histogram of Event Freq per Sec" )
 
 par(mfrow=c( 4, 1 ) )#, mai=c(0.1, 0.1, 0.1, 0.1) )
-stripchart( as.numeric( head( event_data$t_start, 10000 ) ), pch=19, cex=0.5, col="blue", xlab="Event Time in ns", main="1-D Stripchart of Event Time; first 10000 observations." )
-stripchart( as.numeric( head( event_data$t_start, 1000 ) ), pch=19, cex=0.5, col="blue", xlab="Event Time in ns", main="1-D Stripchart of Event Time; first 1000 observations." )
-stripchart( as.numeric( head( event_data$t_start, 100 ) ), pch=19, cex=0.5, col="blue", xlab="Event Time in ns", main="1-D Stripchart of Event Time; first 100 observations." )
-stripchart( as.numeric( head( event_data$t_start, 10 ) ), pch=19, cex=0.5, col="blue", xlab="Event Time in ns", main="1-D Stripchart of Event Time; first 10 observations." )
+stripchart( as.numeric( head( event_data$arrival_t, 10000 ) ), pch=19, cex=0.5, col="blue", xlab="Event Time in ns", main="1-D Stripchart of Event Time; first 10000 observations." )
+stripchart( as.numeric( head( event_data$arrival_t, 1000 ) ), pch=19, cex=0.5, col="blue", xlab="Event Time in ns", main="1-D Stripchart of Event Time; first 1000 observations." )
+stripchart( as.numeric( head( event_data$arrival_t, 100 ) ), pch=19, cex=0.5, col="blue", xlab="Event Time in ns", main="1-D Stripchart of Event Time; first 100 observations." )
+stripchart( as.numeric( head( event_data$arrival_t, 10 ) ), pch=19, cex=0.5, col="blue", xlab="Event Time in ns", main="1-D Stripchart of Event Time; first 10 observations." )
 par( mfrow=c(1, 1) )
 
-plot( event_data$t_start, event_data$delta_t, col="blue", pch=19, xlab="Event Time in ns", ylab="Inter-Event Delta_t in ns", main="Inter-Event Delta_t against Event Time" )
+plot( event_data$arrival_t, event_data$delta_t, col="blue", pch=19, xlab="Event Time in ns", ylab="Inter-Event Delta_t in ns", main="Inter-Event Delta_t against Event Time" )
 
-plot( head( event_data$t_start, 10000 ), head( event_data$delta_t, 10000 ), col="blue", pch=19, xlab="Event Time in ns", ylab="Inter-Event Delta_t in ns", main="Inter-Event Delta_t against Event Time" )
-plot( head( event_data$t_start, 1000 ), head( event_data$delta_t, 1000 ), col="blue", pch=19, xlab="Event Time in ns", ylab="Inter-Event Delta_t in ns", main="Inter-Event Delta_t against Event Time" )
-plot( head( event_data$t_start, 100 ), head( event_data$delta_t, 100 ), col="blue", pch=19, xlab="Event Time in ns", ylab="Inter-Event Delta_t in ns", main="Inter-Event Delta_t against Event Time" )
-plot( head( event_data$t_start, 10 ), head( event_data$delta_t, 10 ), col="blue", pch=19, xlab="Event Time in ns", ylab="Inter-Event Delta_t in ns", main="Inter-Event Delta_t against Event Time" )
+plot( head( event_data$arrival_t, 10000 ), head( event_data$delta_t, 10000 ), col="blue", pch=19, xlab="Event Time in ns", ylab="Inter-Event Delta_t in ns", main="Inter-Event Delta_t against Event Time" )
+plot( head( event_data$arrival_t, 1000 ), head( event_data$delta_t, 1000 ), col="blue", pch=19, xlab="Event Time in ns", ylab="Inter-Event Delta_t in ns", main="Inter-Event Delta_t against Event Time" )
+plot( head( event_data$arrival_t, 100 ), head( event_data$delta_t, 100 ), col="blue", pch=19, xlab="Event Time in ns", ylab="Inter-Event Delta_t in ns", main="Inter-Event Delta_t against Event Time" )
+plot( head( event_data$arrival_t, 10 ), head( event_data$delta_t, 10 ), col="blue", pch=19, xlab="Event Time in ns", ylab="Inter-Event Delta_t in ns", main="Inter-Event Delta_t against Event Time" )
 
 plot( head( event_data$delta_t, 1000 ), head( event_data$duration, 1000 ), pch=19, col="blue", xlab="Inter-Event Delta_t", ylab="Duration of Event in ns", main="Event Duration against Inter-Event Delta_t" )
 
-hist( as.numeric( event_data$delta_t ), col="blue" )
 ```
 
-## Summary Stats and Metrics
+## Summary Stats and Metrics for `delta_t`.
 ```{r}
-summary( event_data$delta_t )
-describe( event_data$delta_t )
 
-ggplot( event_data$delta_t, aes( x = message_processing_time_ns )) + geom_histogram() + scale_x_log10()
+. <- event_data %>%
+  slice( -1 ) %>%
+  mutate( delta_t = as.numeric( delta_t ) ) %>%
+  select( delta_t )
+delta_t = .$delta_t
+
+hist( delta_t, col="blue" )
+
+str(delta_t)
+summary(delta_t)
+describe(delta_t) 
+acf(delta_t)
+pacf(delta_t)
 ```
 # H0 (null): The data was produced in a random manner.
 # Ha (alternative): The data was not produced in a random manner.
