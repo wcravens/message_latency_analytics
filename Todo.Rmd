@@ -14,14 +14,22 @@ output:
 - [ ] Calculate 'Leaky Integrator' value
 - [ ] Move contents of README into a Report notebook
 - [ ] Add Contribution and Project setup instructions to the README
-- [ ] Add window-size homogeneity tests; What window size 'breaks' homogeneity; Change point detection;
+- [ ] [Point Process](https://en.wikipedia.org/wiki/Point_process)
+- [ ] Homogeneity tests
+  - [ ] [Inhomogeneity vs Clustering](https://blog.valdosta.edu/andersonlab/2018/05/03/point-pattern-analysis-visualizing-and-testing-for-inhomogeneity-by-dr-anderson/)
+  - [ ] What time-based window size 'breaks' homogeneity; Change point detection;
   - [ ] Homegrown analysis; Variance of delta_t
   - [ ] [homtests](https://search.r-project.org/CRAN/refmans/homtest/html/HOMTESTS.html)
   - [ ] [snht](https://cran.r-project.org/web/packages/snht/snht.pdf)
   - [ ] [Google Search](https://www.google.com/search?q=Homogeneity+Test&domains=r-project.org&sitesearch=r-project.org)
   - [ ] Determine window size for maximum variance
   - [ ] Determine window size for most 'normal' distribution
-  
+- ### Hawkes Process
+    - https://cran.r-project.org/web/packages/hawkesbow/index.html
+    - https://cran.r-project.org/web/packages/hawkesbow/hawkesbow.pdf
+    - https://search.r-project.org/CRAN/refmans/hawkes/html/simulateHawkes.html
+    - [Hawkes Process](https://arxiv.org/abs/1507.02822)
+
 ## Backlog ( In no particular order )
 - [ ] HOWTO: $\LaTeX$ in plot labels
 - [ ] Document the 'Ubiquitous Language'; e.g. converting from message centric names to event centric.
