@@ -3,46 +3,147 @@ title: "Data Prep"
 output: html_notebook
 ---
 
-```{r}
+```{r echo=FALSE }
 #pacman::p_load(pacman, rio, modules, data.table, bit64, dplyr, ggplot2, psych, randtests, eventInterval )
-#p_unload( all )
-library( tidyverse )
+library( tibble, warn.conflicts = FALSE, verbose=FALSE )
+library( dplyr, warn.conflicts = FALSE, verbose=FALSE )
+library( rio, warn.conflicts = FALSE , verbose=FALSE)
+library( 'bit64', warn.conflicts = FALSE , verbose=FALSE)
+```
+# Load
+
+## Import message data from csv source.
+```{r}
+.msgw_in_import <- rio::import( "./Data/eqfa-msgw-in-0709.txt", format="csv" )
+# View(.msgw_in_import)
 ```
 
-## Import `msgw_in` data from csv source.
+# Transform
+
+ - Remove "PartyDetailsDefinitionRequest" Messages (they all have duplicate arrival times _and_ `null` processing time)
+ - Normalize t; t_i = ts_ns_i - ts_ns_0 
+ - calculate `duration` of event in ns
+ # calculate delta_t per event
+ 
 ```{r}
-.msgw_in_import <- rio::import( "./Data/eqfa-msgw-in-0709.txt", format="csv", setclass="tibble" )
+tmp_event_data <- .msgw_in_import %>%
+  filter( !`Msg Type` %in% c( "PartyDetailsDefinitionRequest" ) ) %>%
+  filter( ts_ns < first( ts_ns ) + 1.2e11 ) %>% # First two minutes
+  mutate(
+    t = ts_ns - first(ts_ns),
+    duration = as.numeric( na_if( `PNQM Latency (ms)`, "null" ) ) * 1e6,
+    type = as.factor( `Msg Type` )
+  ) %>%
+  group_by( t ) %>%
+  mutate(
+    dup_count = n() - 1,
+    dup_number = row_number() - 1
+  ) %>%
+  select( t, duration, type, dup_count, dup_number ) %>%
+  ungroup() %>%
+  arrange( t ) %>%
+  mutate( t = t + dup_number, delta_t = t - lag(t) )
 ```
+
+# Trim
+Trim to the first two minutes of data for efficiency
+```{r}
+event_data <- event_data %>%
+  filter( t_normalized < 1.2e11 ) # Two minutes worth of data
+```
+
+# Adjust
+
+Count duplicate t
+Distribute t for events with duplicate t
+```{r}
+dup_data <- event_data %>% 
+  group_by( t_normalized ) %>%
+  #mutate( dup_count = n() - 1, dup_id = row_number() - 1, t = t_normalized + row_number() - 1 ) %>%
+  mutate( t = ifelse( row_number() > 2, as.integer( _normalized + row_number() - 1 ), t_normalized ) )
+```
+
+```{r}
+duplicate_t <- event_data %>% group_by( t ) %>% summarize( count=n() ) %>% filter( count > 1 )
+max_t_stack_size <- max( duplicate_t$count )
+event_delta_t_range <- tmp_data_prep %>%
+  filter( inter_message_delta_t > 0 ) %>%
+  summarize( min = min( inter_message_delta_t ), max=max( inter_message_delta_t ) )
+# if event_delta_t_range$min < max_t_stack_size
+event_data <- %>%
+  group_by( t )
+  
+```
+
+# Clean message processessing time
+```{r} 
+tmp_data_prep %>% mutate( 
+  message_processing_delta_t_ns = as.integer( na_if( "PNQM Latency (ms)", "null" ) ) * 1e6,
+  message_exit_t_ns = message_arrival_t_ns + message_processing_delta_t_ns,
+  message_type = .msgw_in_import$`Msg Type`
+)
+```
+
+
+tmp_data_prep <- tibble(
+  message_processing_delta_t_ns = as.integer( na_if( .msgw_in_import$"PNQM Latency (ms)", "null" ) ) * 1e6,
+  message_exit_t_ns = message_arrival_t_ns + message_processing_delta_t_ns,
+  message_type = .msgw_in_import$`Msg Type`
+)
+```{r}
+# View( tmp_data_prep %>% filter( ts_ns == 1730804212120 ))
+```
+
+# Spread out duplicate arrival times.
+
+Method:
+
+    l = list of messages with arrival time t
+    n = length( list )
+    for each message in l {
+      message.arrival_time = message.arrival_time + n
+      n--
+    }
 
 ## Prepare working data
 
 - Normalize message arrival time-stamp to start series at $t_0 = 0$.
+- Spread out messages with duplicate arrival times
 - Calculate inter_message_delta_t in nanoseconds
 - Convert latency/processing time to nanoseconds
 - Calculate message exit time in nanoseconds
 
 ```{r}
 t0 = first(.msgw_in_import$ts_ns)
-msgw_in <- tibble( 
-  message_arrival_t_ns = as.numeric( .msgw_in_import$ts_ns - t0 ),
-  inter_message_delta_t_ns = message_arrival_t_ns - lag( message_arrival_t_ns, default=first(message_arrival_t_ns) ),
-  message_processing_delta_t_ns = as.numeric( na_if( .msgw_in_import$"PNQM Latency (ms)", "null" ) ) * 1e6,
+
+# CLEAN_ME: Convert RHS of these assignments to function calls
+tmp_data_prep <- tibble(
+  message_arrival_t_ns = .msgw_in_import$ts_ns - t0
+  inter_message_delta_t_ns = tmp_data_prep$message_arrival_t_ns - lag( message_arrival_t_ns, default=first(message_arrival_t_ns) ),
+  message_processing_delta_t_ns = as.integer( na_if( .msgw_in_import$"PNQM Latency (ms)", "null" ) ) * 1e6,
   message_exit_t_ns = message_arrival_t_ns + message_processing_delta_t_ns,
   message_type = .msgw_in_import$`Msg Type`
 )
+# View( msgw_in )
 ```
 
-## Remove incomplete records and duplicated arrival times.
+
+## Data rejection
+
+- Processing time is 'null'
+- Duplicated arrival times ( results in inter-message_delta_t == 0 )
 
 We need to gain some understanding of how the source data is generated.  These 'missing' values may or may not make sense.  For now we just remove them to make progress on the mathematics.
-```{r}
+
+```{r codeeval= FALSE}
 msgw_in <- msgw_in %>%
-  filter( !is.na( message_processing_delta_t_ns ))
+  filter( !is.na( message_processing_delta_t_ns ) ) %>%
+  filter( inter_message_delta_t_ns > 0 )
 ```
 
 ## Reduce data down to just a couple of minutes
 ```{r}
-msgw_in_trunc <- msgw_in[ msgw_in$message_arrival_t_ns < 1.2e11, ]
+msgw_in_trunc <- msgw_in[ msgw_in$message_arrival_t_ns < 1.2e11, ] # First two minutes
 ```
 
 Successfully loaded `r nrow( msgw_in_trunc )` observations over the first two minutes of our primary data.
@@ -57,9 +158,22 @@ stripchart( msgw_in_trunc$message_arrival_t_ns, method="stack", col="blue", xlab
 ```
 
 # TODO
+
+# Feature Detection
+
+## Window size analysis across inter-message delta_t
+
+### discover necessary size for break in homegnaity
+### max variance in 'features'
+### Most 'normal' distribution in 'features'
+
 # Calculate Queue Size
 
 # Calculate 'Leaky Integrator' or other smoothing window function/kernel
+
+
+
+
 
 ## Analysis
 

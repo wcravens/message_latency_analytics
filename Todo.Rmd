@@ -16,6 +16,10 @@ output:
 - [x] Convert run.r to an R Notebook
 - [x] Clean up initial data prep
 - [.] Normalize on Tidyverse libraries/packages
+- [ ] Interogate the stats on the number of message 'stacks' that we have with duplicate arrival times.
+- [ ] Offset message arrival time for duplicate arrival times.
+
+## Next 
 - [ ] Setup [targets](https://books.ropensci.org/targets) for the project
 - [ ] Compare data tracking methods between `target`, `repo` and `dvc`.
 - [ ] Add initial data prep target
@@ -23,8 +27,9 @@ output:
 - [ ] Move contents of README into a Report notebook
 - [ ] Add Contribution and Project setup instructions to the README
 - [ ] Refactor project structure into a standard Repeatable Research model.
-
-## Next 
+- [ ] Refactor generic routines into functions kept in 'lib' files ( R Scripts or separate notebooks)
+- [ ] Add some sort of metrics report and/or processing log to input data manipulation/processing
+- [ ] ?Should 'type' be converted to a factor?
 - [ ] Bibtex references throughout R Markdown/Bookdown; Global option for bibliography?
 - [ ] Identify periodic 'publication' documents needed on a project (e.g. Meeting Minutes/Outcomes, Work log, project metrics, etc)
 - [ ] Reading List, reference groups, priorities and Bibtex
