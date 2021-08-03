@@ -3,14 +3,15 @@ title: "Data Prep"
 output: html_notebook
 ---
 
-```{r echo=FALSE }
-#pacman::p_load(pacman, rio, modules, data.table, bit64, dplyr, ggplot2, psych, randtests, eventInterval )
-library( tibble, warn.conflicts = FALSE, verbose=FALSE )
-library( dplyr, warn.conflicts = FALSE, verbose=FALSE )
-library( rio, warn.conflicts = FALSE , verbose=FALSE)
-library( 'bit64', warn.conflicts = FALSE , verbose=FALSE)
+```{r include=FALSE} 
+# Other Modules we may want later ggplot2, psych, randtests, eventInterval
+library( tibble )
+library( dplyr )
+library( rio )
+library( bit64 )
 ```
-# Load
+
+# Import Data from File
 
 ## Import message data from csv source.
 ```{r}
@@ -18,17 +19,22 @@ library( 'bit64', warn.conflicts = FALSE , verbose=FALSE)
 # View(.msgw_in_import)
 ```
 
-# Transform
-
+# Prepare input data
  - Remove "PartyDetailsDefinitionRequest" Messages (they all have duplicate arrival times _and_ `null` processing time)
- - Normalize t; t_i = ts_ns_i - ts_ns_0 
- - calculate `duration` of event in ns
- # calculate delta_t per event
- 
+- Normalize event `t_start` at $t_0 = 0$ Method: $t_i = t_i - t_0 \mbox{ for } i=0,...,n$.
+- Spread out messages with duplicate arrival times; Method: $t_i = t_i + k \mbox{ for } i = 0,...,n \mbox{ for } k=0..d$ where $d = $ number of duplicates at $t_i$ 
+- Calculate inter-message `delta_t` in nanoseconds
+- Convert latency/processing time `PNQM Latency (ms)` to `duration` in nanoseconds
+- Use `Msg Type` as new factor `type`
+- Calculate message exit time `t_end` in nanoseconds
+
 ```{r}
-tmp_event_data <- .msgw_in_import %>%
+input_limit <- 1.2e11 # Two minutes in ns
+print( paste( "Input is Monotonic: ", all(.msgw_in_import$ts_ns == cummax(.msgw_in_import$ts_ns) ) ) )
+
+event_data <- .msgw_in_import %>%
   filter( !`Msg Type` %in% c( "PartyDetailsDefinitionRequest" ) ) %>%
-  filter( ts_ns < first( ts_ns ) + 1.2e11 ) %>% # First two minutes
+  { if( input_limit ) filter(  ., ts_ns < first(ts_ns) + input_limit ) } %>%
   mutate(
     t = ts_ns - first(ts_ns),
     duration = as.numeric( na_if( `PNQM Latency (ms)`, "null" ) ) * 1e6,
@@ -42,177 +48,44 @@ tmp_event_data <- .msgw_in_import %>%
   select( t, duration, type, dup_count, dup_number ) %>%
   ungroup() %>%
   arrange( t ) %>%
-  mutate( t = t + dup_number, delta_t = t - lag(t) )
+  mutate( t_start = t + dup_number, delta_t = t_start - lag(t_start), t_end = t_start + duration ) %>%
+  select( t_start, delta_t, type, duration, t_end )
+
+str( event_data )
 ```
 
-# Trim
-Trim to the first two minutes of data for efficiency
+Successfully loaded `r nrow( event_data )` observations over the first $input_limit$ nanoseconds of our event data.
+
+## Vizualizations against Event Time 
 ```{r}
-event_data <- event_data %>%
-  filter( t_normalized < 1.2e11 ) # Two minutes worth of data
+hist( as.numeric( event_data$t_start ), breaks=120, col="blue", xlab = "Event Time in ns over the first two minutes of data.", main="Histogram of Event Freq per Sec" )
+
+par(mfrow=c( 4, 1 ) )#, mai=c(0.1, 0.1, 0.1, 0.1) )
+stripchart( as.numeric( head( event_data$t_start, 10000 ) ), pch=19, cex=0.5, col="blue", xlab="Event Time in ns", main="1-D Stripchart of Event Time; first 10000 observations." )
+stripchart( as.numeric( head( event_data$t_start, 1000 ) ), pch=19, cex=0.5, col="blue", xlab="Event Time in ns", main="1-D Stripchart of Event Time; first 1000 observations." )
+stripchart( as.numeric( head( event_data$t_start, 100 ) ), pch=19, cex=0.5, col="blue", xlab="Event Time in ns", main="1-D Stripchart of Event Time; first 100 observations." )
+stripchart( as.numeric( head( event_data$t_start, 10 ) ), pch=19, cex=0.5, col="blue", xlab="Event Time in ns", main="1-D Stripchart of Event Time; first 10 observations." )
+par( mfrow=c(1, 1) )
+
+plot( event_data$t_start, event_data$delta_t, col="blue", pch=19, xlab="Event Time in ns", ylab="Inter-Event Delta_t in ns", main="Inter-Event Delta_t against Event Time" )
+
+plot( head( event_data$t_start, 10000 ), head( event_data$delta_t, 10000 ), col="blue", pch=19, xlab="Event Time in ns", ylab="Inter-Event Delta_t in ns", main="Inter-Event Delta_t against Event Time" )
+plot( head( event_data$t_start, 1000 ), head( event_data$delta_t, 1000 ), col="blue", pch=19, xlab="Event Time in ns", ylab="Inter-Event Delta_t in ns", main="Inter-Event Delta_t against Event Time" )
+plot( head( event_data$t_start, 100 ), head( event_data$delta_t, 100 ), col="blue", pch=19, xlab="Event Time in ns", ylab="Inter-Event Delta_t in ns", main="Inter-Event Delta_t against Event Time" )
+plot( head( event_data$t_start, 10 ), head( event_data$delta_t, 10 ), col="blue", pch=19, xlab="Event Time in ns", ylab="Inter-Event Delta_t in ns", main="Inter-Event Delta_t against Event Time" )
+
+plot( head( event_data$delta_t, 1000 ), head( event_data$duration, 1000 ), pch=19, col="blue", xlab="Inter-Event Delta_t", ylab="Duration of Event in ns", main="Event Duration against Inter-Event Delta_t" )
+
+hist( as.numeric( event_data$delta_t ), col="blue" )
 ```
 
-# Adjust
-
-Count duplicate t
-Distribute t for events with duplicate t
+## Summary Stats and Metrics
 ```{r}
-dup_data <- event_data %>% 
-  group_by( t_normalized ) %>%
-  #mutate( dup_count = n() - 1, dup_id = row_number() - 1, t = t_normalized + row_number() - 1 ) %>%
-  mutate( t = ifelse( row_number() > 2, as.integer( _normalized + row_number() - 1 ), t_normalized ) )
+summary( event_data$delta_t )
+describe( event_data$delta_t )
+
+ggplot( event_data$delta_t, aes( x = message_processing_time_ns )) + geom_histogram() + scale_x_log10()
 ```
-
-```{r}
-duplicate_t <- event_data %>% group_by( t ) %>% summarize( count=n() ) %>% filter( count > 1 )
-max_t_stack_size <- max( duplicate_t$count )
-event_delta_t_range <- tmp_data_prep %>%
-  filter( inter_message_delta_t > 0 ) %>%
-  summarize( min = min( inter_message_delta_t ), max=max( inter_message_delta_t ) )
-# if event_delta_t_range$min < max_t_stack_size
-event_data <- %>%
-  group_by( t )
-  
-```
-
-# Clean message processessing time
-```{r} 
-tmp_data_prep %>% mutate( 
-  message_processing_delta_t_ns = as.integer( na_if( "PNQM Latency (ms)", "null" ) ) * 1e6,
-  message_exit_t_ns = message_arrival_t_ns + message_processing_delta_t_ns,
-  message_type = .msgw_in_import$`Msg Type`
-)
-```
-
-
-tmp_data_prep <- tibble(
-  message_processing_delta_t_ns = as.integer( na_if( .msgw_in_import$"PNQM Latency (ms)", "null" ) ) * 1e6,
-  message_exit_t_ns = message_arrival_t_ns + message_processing_delta_t_ns,
-  message_type = .msgw_in_import$`Msg Type`
-)
-```{r}
-# View( tmp_data_prep %>% filter( ts_ns == 1730804212120 ))
-```
-
-# Spread out duplicate arrival times.
-
-Method:
-
-    l = list of messages with arrival time t
-    n = length( list )
-    for each message in l {
-      message.arrival_time = message.arrival_time + n
-      n--
-    }
-
-## Prepare working data
-
-- Normalize message arrival time-stamp to start series at $t_0 = 0$.
-- Spread out messages with duplicate arrival times
-- Calculate inter_message_delta_t in nanoseconds
-- Convert latency/processing time to nanoseconds
-- Calculate message exit time in nanoseconds
-
-```{r}
-t0 = first(.msgw_in_import$ts_ns)
-
-# CLEAN_ME: Convert RHS of these assignments to function calls
-tmp_data_prep <- tibble(
-  message_arrival_t_ns = .msgw_in_import$ts_ns - t0
-  inter_message_delta_t_ns = tmp_data_prep$message_arrival_t_ns - lag( message_arrival_t_ns, default=first(message_arrival_t_ns) ),
-  message_processing_delta_t_ns = as.integer( na_if( .msgw_in_import$"PNQM Latency (ms)", "null" ) ) * 1e6,
-  message_exit_t_ns = message_arrival_t_ns + message_processing_delta_t_ns,
-  message_type = .msgw_in_import$`Msg Type`
-)
-# View( msgw_in )
-```
-
-
-## Data rejection
-
-- Processing time is 'null'
-- Duplicated arrival times ( results in inter-message_delta_t == 0 )
-
-We need to gain some understanding of how the source data is generated.  These 'missing' values may or may not make sense.  For now we just remove them to make progress on the mathematics.
-
-```{r codeeval= FALSE}
-msgw_in <- msgw_in %>%
-  filter( !is.na( message_processing_delta_t_ns ) ) %>%
-  filter( inter_message_delta_t_ns > 0 )
-```
-
-## Reduce data down to just a couple of minutes
-```{r}
-msgw_in_trunc <- msgw_in[ msgw_in$message_arrival_t_ns < 1.2e11, ] # First two minutes
-```
-
-Successfully loaded `r nrow( msgw_in_trunc )` observations over the first two minutes of our primary data.
-
-## Move this stuff to a Verification or Analysis Rmd
-```{r}
-hist( msgw_in_trunc$message_arrival_t_ns, breaks=120, col="blue", xlab = "Message Arrival Time in ns over the first two minutes of data.", main="Histogram of Message Arrival Times (bin count = 120)" )
-
-plot( msgw_in_trunc$message_arrival_t_ns, msgw_in_trunc$inter_message_delta_t_ns, col="blue", xlab="Message Arrival Time in ns", ylab="Inter-Message Delta_t in ns", main="Inter-message delta_t against Message Arrival Time" )
-
-stripchart( msgw_in_trunc$message_arrival_t_ns, method="stack", col="blue", xlab="Message Arrival Time in ns", main="1-D Stripchart of Message Arrival Time" )
-```
-
-# TODO
-
-# Feature Detection
-
-## Window size analysis across inter-message delta_t
-
-### discover necessary size for break in homegnaity
-### max variance in 'features'
-### Most 'normal' distribution in 'features'
-
-# Calculate Queue Size
-
-# Calculate 'Leaky Integrator' or other smoothing window function/kernel
-
-
-
-
-
-## Analysis
-
-msgw_in_length <- length( msgw_in$message_arrival_t_ns )
-msgw_in_unique_length <- length( unique( msgw_in$message_arrival_t_ns ) )
-print( paste( "msgw_in$ts_nw is Unique:", msgw_in_length == msgw_in_unique_length ) )
-print( paste( "Percent of msgw_in Unique arrival time: ", msgw_in_unique_length / msgw_in_length ) )
-
-msgw_in_duplicate_arrival_time <- msgw_in[duplicated(msgw_in$message_arrival_t_ns),]
-## Visual inspection of the observations with duplicate time stamps did not reveal any obvious patters.  We will leave the duplicate timestamps as they are.
-
-print( paste( "t0 is Monotonic: ", all(msgw_in$message_arrival_t_ns == cummax(msgw_in$message_arrival_t_ns) ) ) )
-
-print( paste( "Data covers ", max( msgw_in$message_arrival_t_ns), 'ns' ) )
-print( paste( "Data covers ", max( msgw_in$message_arrival_t_ns)/1e6, 'ms' ) )
-print( paste( "Data covers ", max( msgw_in$message_arrival_t_ns)/1e9, 'sec' ) )
-print( paste( "Data covers ", max( msgw_in$message_arrival_t_ns)/1e9/60, 'min' ) )
-
-# Our data covers ~30 minutes.
-ggplot( msgw_in, aes( x = inter_message_delta_t_ns ) ) + geom_histogram()
-
-hist( msgw_in$inter_message_delta_t_ns,
-      col="thistle",
-      main = "Histogram of Inter-message time Between Message Arrivals",
-      xlab = "Nanoseconds between messages"
-)
-              mean( msgw_in$inter_message_delta_t_ns )
-              sd( msgw_in$inter_message_delta_t_ns)
-
-summary( msgw_in$inter_message_delta_t_ns )
-describe( msgw_in$inter_message_delta_t_ns )
-
-ggplot( msgw_in, aes( x = message_processing_time_ns )) + geom_histogram() + scale_x_log10()
-
-tmp <- data.frame( message_arrival_t_ns = as.numeric( msgw_in$message_arrival_t_ns ) )
-str( tmp )
-ggplot( tmp, aes( x = message_arrival_t_ns ) ) + geom_histogram( bins = 30*60*100 ) 
-hist( tmp$message_arrival_t_ns, breaks = 30*60*100 )
-
 # H0 (null): The data was produced in a random manner.
 # Ha (alternative): The data was not produced in a random manner.
 
@@ -237,26 +110,15 @@ difference.sign.test( d2 )
 acf( d2 ) 
 pacf( d2 )
 
-stripchart( as.numeric( msgw_in$message_arrival_t_ns[ msgw_in$message_arrival_t_ns < 1 * 60 * 1e12] ) )
+    # Strip Charts at different times across the data set
+    arrival_times_slice_labels <- cut( numeric_arrival_times, breaks=30*60, labels=F, include.lowest=T )
+    arrival_time_slices <- data.frame( numeric_arrival_times, arrival_times_slice_labels )
+    par(mfrow=c( 30, 1 ), mai=c(0.1, 0.1, 0.1, 0.1) )
+    loop_count <- 1:30
+    for( i in loop_count ){
+      stripchart( arrival_time_slices$numeric_arrival_times[ arrival_time_slices$arrival_times_slice_labels == i * 60 ], method="stack", pch=19, cex=0.5, col="blue", xlab=NULL, ylab=NULL, main=NULL, axes=F )
+    }
 
-numeric_arrival_times <- as.numeric( msgw_in$message_arrival_t_ns )
-hist( numeric_arrival_times, breaks = 30*60*100 )
-stripchart( numeric_arrival_times )
-
-arrival_times_slice_labels <- cut( numeric_arrival_times, breaks=30*60, labels=F, include.lowest=T )
-arrival_time_slices <- data.frame( numeric_arrival_times, arrival_times_slice_labels )
-par(mfrow=c( 30, 1 ), mai=c(0.1, 0.1, 0.1, 0.1) )
-loop_count <- 1:30
-for( i in loop_count ){
-  stripchart( arrival_time_slices$numeric_arrival_times[ arrival_time_slices$arrival_times_slice_labels == i * 60 ], method="stack", pch=19, cex=0.5, col="blue", xlab=NULL, ylab=NULL, main=NULL, axes=F )
-}
-
-## hawkes
-# https://cran.r-project.org/web/packages/hawkesbow/index.html
-# https://cran.r-project.org/web/packages/hawkesbow/hawkesbow.pdf
-# https://search.r-project.org/CRAN/refmans/hawkes/html/simulateHawkes.html
-
-plot( numeric_arrival_times, msgw_in$inter_message_delta_t_ns )
 
 EIplot( msgw_in$message_arrival_t_ns )
 EIglm( numeric_arrival_times )
