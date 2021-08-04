@@ -10,7 +10,11 @@ output:
 ## In Progress
 
 ## Next
-- [ ] Calculate concurrent event overlap size
+- [x] Calculate concurrent event overlap size
+- [ ] Join concurrent event size with event_data on arrival_t = t
+- [ ] Plot Scatter plot of lag( Concurrent Event Size ) against Duration
+- [ ] [ggplot step function](http://sape.inf.usi.ch/quick-reference/ggplot2/geom_step)
+- [ ] [Descriptive Statistics](https://methodenlehre.github.io/SGSCLM-R-course/descriptive-statistics.html)
 - [ ] Calculate 'Leaky Integrator' value
 - [ ] Move contents of README into a Report notebook
 - [ ] Add Contribution and Project setup instructions to the README
