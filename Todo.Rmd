@@ -35,6 +35,9 @@ output:
     - https://search.r-project.org/CRAN/refmans/hawkes/html/simulateHawkes.html
     - [Hawkes Process](https://arxiv.org/abs/1507.02822)
 
+## Reading
+[How R Helps Airbnb Make the Most of its Data](https://www.tandfonline.com/doi/full/10.1080/00031305.2017.1392362)
+
 ## Backlog ( In no particular order )
 - [ ] HOWTO: $\LaTeX$ in plot labels
 - [ ] Document the 'Ubiquitous Language'; e.g. converting from message centric names to event centric.
