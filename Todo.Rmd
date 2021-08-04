@@ -36,7 +36,11 @@ output:
     - [Hawkes Process](https://arxiv.org/abs/1507.02822)
 
 ## Reading
-[How R Helps Airbnb Make the Most of its Data](https://www.tandfonline.com/doi/full/10.1080/00031305.2017.1392362)
+  - [How R Helps Airbnb Make the Most of its Data](https://www.tandfonline.com/doi/full/10.1080/00031305.2017.1392362)
+  - [Hawkes Processes - Laub, Taimre, Pollet](https://arxiv.org/pdf/1507.02822.pdf)
+  - [Algorithms for Unevenly Spaced Time Series: Moving Averages and Other Rolling Operators](http://www.eckner.com/papers/Algorithms%20for%20Unevenly%20Spaced%20Time%20Series.pdf)
+  - [Reproducability Guide](https://ropensci.github.io/reproducibility-guide/)
+  - [R Open Sci](https://ropensci.org/)
 
 ## Backlog ( In no particular order )
 - [ ] HOWTO: $\LaTeX$ in plot labels
