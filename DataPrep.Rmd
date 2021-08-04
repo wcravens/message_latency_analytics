@@ -5,6 +5,7 @@ output: html_notebook
 
 ```{r include=FALSE} 
 # Other Modules we may want later ggplot2, randtests, eventInterval
+library( tidyverse )
 library( tibble )
 library( dplyr )
 library( rio )
