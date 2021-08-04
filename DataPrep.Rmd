@@ -15,8 +15,11 @@ library( psych )
 # Import Data from File
 
 ## Import message data from csv source.
-```{r}
+
+```{r msgw_in_import}
 .msgw_in_import <- rio::import( "./Data/eqfa-msgw-in-0709.txt", format="csv" )
+is_monotonic <- all(.msgw_in_import$ts_ns == cummax(.msgw_in_import$ts_ns) )
+if( !is_monotonic ) stop("Input data is not monotonic on timestamp, ts_ns." )
 .msgw_in_import
 ```
 
