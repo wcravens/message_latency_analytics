@@ -1,6 +1,7 @@
 ---
 title: "Notes"
 output:
+  html_notebook: default
   html_document:
     toc: yes
     number_sections: yes
