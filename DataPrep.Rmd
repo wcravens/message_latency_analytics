@@ -120,16 +120,7 @@ hist( log( as.numeric( delta_t)), col="blue", main="Histogram of log( Inter-even
 ```
 
 ## Visualizations concering the Number of Concurrent Events over Time (Queueing Process)
-```{r}
-# . <- event_data$arrival_T
-# arrival_T <- .[!is.na(.)]
-
-# . <- event_data$departure_T
-# departure_T <- .[!is.na(.)]
-
-# str( arrival_T )
-# str( departure_T )
-
+```{r explore_concurent_events}
 in_queue <- event_data %>%
   filter( !is.na( departure_T ), departure_T != 0 ) %>%
   mutate( t = arrival_T, step = 1 ) %>%
