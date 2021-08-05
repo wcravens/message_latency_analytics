@@ -1,0 +1,34 @@
+---
+title: "Reproducable Research"
+output:
+  html_notebook:
+    toc: yes 
+    number_sections: yes
+---
+# Reproduceable Research
+
+Here we outline our study into Reproducible Research to provide guidance
+in the development of a Data Science / Machine Learning best practices model.
+This model will provide training, guidelines, standards and expectations for
+conducting projects.
+
+The goal of this model is to provide an opinionated and easy to use process for
+conducting and documenting project discoveries according to pre-defined 
+standards.
+
+This model will be especially useful for transient populations (e.g. students,
+seasonal interns, workshop groups) that benefit from having predefined standards
+and clear instructions on how to execute.  The provided scaffolding also
+encourages effort to be focused on the analytical goals of the project
+rather than infrastructure or standards.
+
+-----
+
+## Background Reading and Notes
+
+### [Use of an R package to facilitate reproducible research](https://github.com/ropensci/rrrpkg)
+
+#### Research Compendium
+
+Using standard R Package structure is a common, familiar, and well documented standard.
+
