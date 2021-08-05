@@ -1,0 +1,47 @@
+---
+title: "Project Update Aug. 5th, 2021"
+output: html_notebook
+---
+
+Review [Hawkes Process, Laub 2015](https://arxiv.org/pdf/1507.02822.pdf)
+
+Also [Simulation, Estimation and Applications of Hawkes Processes, Obral 2016](https://scse.d.umn.edu/sites/scse.d.umn.edu/files/obral_master.pdf)
+
+## [Done](Todo)
+
+- [x] Calculate concurrent event overlap size
+- [x] Add monotonic test on `ts_ns` in `.msgw_in_import` data.
+- [x] Start outline of best practices, needs and methodologies
+- [x] Reference Manager App Evaluations (Jabref, Mendeley, Zotero)
+  - Mendeley seems to have been the one I've stuck with so far.
+- [x] Evaluate and setup [DVC](dvc.org) for tracking/versioning data resources and history.
+- [x] Setup basic Metalsmith static site generator.
+  - Will probably let this go in favor of an R Markdown based solution.
+- [x] [R Markdown, Bookdown and Knitr](https://bookdown.org/yihui/rmarkdown/)
+- [x] Bibtex integration into R Markdown/Bookdown
+- [x] Setup renv for project
+- [x] Factor away the lib file for unzipping data
+- [x] Add CSV Schema for our input data csv files
+- [x] Convert run.r to an R Notebook
+- [x] Clean up initial data prep
+- [x] Offset message arrival time for duplicate arrival times.
+- [x] Normalize on Tidyverse libraries/packages
+- [x] Convert `Msg Type` to factor `type`
+
+## Next 
+
+The next step is to test for homogeneity in the event arrival time.  I think that I'll try and build my own method by analyzing the distribution of events in randomly sampled windows of different sizes.  My assumption is that there is an upper limit to the window size where the data inside the sampled windows is no longer homogenous.  There should also be a lower limit to the window size where the sampled data returns to being homogenous. This should give us a kind of 'change detection' in the frequency of event arrivals.  We can then test for 'optimum' window size based on goals; e.g. the window size with highest variance, or perhaps 'most normal' distribution, etc.
+
+I then need to figure out the 'characteristics' of the assumed clustering.  Is it inhomogeneous or clustering?  I'm not 100% sure if I grock the difference, but I think the gist is that inhomogeneity is observed grouping but the events are IID and the grouping just a result of non-uniform-random distribution.  But in clustering the events are not independent.  So, we are probably assuming that they are clustered.
+
+## From [Todo Next](Todo):
+
+- [ ] Homogeneity tests
+  - [ ] [Inhomogeneity vs Clustering](https://blog.valdosta.edu/andersonlab/2018/05/03/point-pattern-analysis-visualizing-and-testing-for-inhomogeneity-by-dr-anderson/)
+  - [ ] What time-based window size 'breaks' homogeneity; Change point detection;
+  - [ ] Homegrown analysis; Variance of delta_t
+  - [ ] [homtests](https://search.r-project.org/CRAN/refmans/homtest/html/HOMTESTS.html)
+  - [ ] [snht](https://cran.r-project.org/web/packages/snht/snht.pdf)
+  - [ ] [Google Search](https://www.google.com/search?q=Homogeneity+Test&domains=r-project.org&sitesearch=r-project.org)
+  - [ ] Determine window size for maximum variance
+  - [ ] Determine window size for most 'normal' distribution
