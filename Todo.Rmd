@@ -3,8 +3,7 @@ title: "Todo"
 author: "Wes Cravens"
 date: "7/29/2021"
 bibliography: "Bibtex/Mendeley.bib"
-output:
-  html_document
+output: html_notebook
 ---
 
 ## In Progress
@@ -37,23 +36,27 @@ output:
     - [Hawkes Process](https://arxiv.org/abs/1507.02822)
 
 ## Reading
-  ### Best Practices
-  - [How R Helps Airbnb Make the Most of its Data](https://www.tandfonline.com/doi/full/10.1080/00031305.2017.1392362)
-  - [Using R packages and education to scale Data Science at Airbnb](https://medium.com/airbnb-engineering/using-r-packages-and-education-to-scale-data-science-at-airbnb-906faa58e12d)
-  - [Reproducability Guide](https://ropensci.github.io/reproducibility-guide/)
-  - [R Open Sci](https://ropensci.org/)
-  ### Stats
-  - [Kernel Smoothing/local regression vs Moving Average](https://stats.stackexchange.com/questions/205178/difference-between-local-regression-and-moving-average-for-smoothing)
-  - [Introduction to Simulation using R](https://www.probabilitycourse.com/chapter13/Chapter_13.pdf)
-  - [Statistial Inference](https://www.probabilitycourse.com/chapter8/8_1_0_intro.php)
-  - [Hawkes Processes - Laub, Taimre, Pollet](https://arxiv.org/pdf/1507.02822.pdf)
-  - [Simulation, Estimation and Applications of Hawkes Processes](https://scse.d.umn.edu/sites/scse.d.umn.edu/files/obral_master.pdf)
-  - [Algorithms for Unevenly Spaced Time Series: Moving Averages and Other Rolling Operators](http://www.eckner.com/papers/Algorithms%20for%20Unevenly%20Spaced%20Time%20Series.pdf)
-  - [https://arxiv.org/pdf/2102.05724.pdf](https://arxiv.org/pdf/2102.05724.pdf)
-  - [Introduction to Point Processes - Daley](file:///home/wcravens/Downloads/Daley-Vere-Jones2003_Book_AnIntroductionToTheTheoryOfPoi.pdf)
+
+### Best Practices
+  
+  - [ ] [How R Helps Airbnb Make the Most of its Data](https://www.tandfonline.com/doi/full/10.1080/00031305.2017.1392362)
+  - [ ] [Using R packages and education to scale Data Science at Airbnb](https://medium.com/airbnb-engineering/using-r-packages-and-education-to-scale-data-science-at-airbnb-906faa58e12d)
+  - [ ] [Reproducability Guide](https://ropensci.github.io/reproducibility-guide/)
+  - [ ] [R Open Sci](https://ropensci.org/)
+  
+### Stats
+
+  - [ ] [Kernel Smoothing/local regression vs Moving Average](https://stats.stackexchange.com/questions/205178/difference-between-local-regression-and-moving-average-for-smoothing)
+  - [ ] [Introduction to Simulation using R](https://www.probabilitycourse.com/chapter13/Chapter_13.pdf)
+  - [ ] [Statistial Inference](https://www.probabilitycourse.com/chapter8/8_1_0_intro.php)
+  - [ ] [Hawkes Processes - Laub, Taimre, Pollet](https://arxiv.org/pdf/1507.02822.pdf)
+  - [ ] [Simulation, Estimation and Applications of Hawkes Processes](https://scse.d.umn.edu/sites/scse.d.umn.edu/files/obral_master.pdf)
+  - [ ] [Algorithms for Unevenly Spaced Time Series: Moving Averages and Other Rolling Operators](http://www.eckner.com/papers/Algorithms%20for%20Unevenly%20Spaced%20Time%20Series.pdf)
+  - [ ] [https://arxiv.org/pdf/2102.05724.pdf](https://arxiv.org/pdf/2102.05724.pdf)
+  - [ ] [Introduction to Point Processes - Daley](file:///home/wcravens/Downloads/Daley-Vere-Jones2003_Book_AnIntroductionToTheTheoryOfPoi.pdf)
 )
-  - [Review Autogressive Models]()
-  - [Queuing Process](https://www.statistics.com/glossary/queuing-process/)
+  - [ ] [Review Autogressive Models]()
+  - [ ] [Queuing Process](https://www.statistics.com/glossary/queuing-process/)
   
 ## Backlog ( In no particular order )
 - [ ] HOWTO: $\LaTeX$ in plot labels
