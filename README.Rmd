@@ -1,63 +1,64 @@
 ---
 title: "MSFE-IE522 Statistical Methods Summer Project"
-author: "Wes Cravens"
-date: "7/12/2021"
-bibliography: "Bibtex/Mendeley.bib"
+author:
+- Wes Cravens, UIUC^[University of Illinois Urbana-Champaign, wbc3@illinois.edu]; Wes Cravens, CMEG^[CME Group(CMEG), wes.cravens@cmegroup.com]; Prof. Liming Feng, UIUC^[UIUC, fenglm@illinois.edu]; \& Haifeng Zheng, CMEG^[CME Group, haifeng.zheng@cmegroup.com]
+date: "08/05/2021"
 output:
-  html_document:
+  html_notebook:
+    fig_caption: no
     toc: yes
     number_sections: yes
-    df_print: paged
+  html_document:
+    fig_caption: no
+    toc: yes
+    number_sections: yes
 ---
 
-## Project Synopsis
+# Table of contents { .unlisted, .unnumbered }
 
-This project undertakes to analyze and parametarize the event process/es for messages arriving to a black box application and the corresponding impact on message latency(processing time) on the outbound messages from the black box.  It's assumed that the primary influence on processing time/latency is the arrival frequency of inbound messages.
+# Development Environment
 
-In the first instance we will simply be analyzing the event timing in both the time and frequency domains.  The goal will be to establish some parameteraization so that going forward we can identify patterns in the event timing.  E.g. Are the events 'random'? What is a normal residual 'random' arrival?  How can we parameterize / define a 'burst' of activity.  What constitutes an event frequency outlier (high rate, low rate, burst)?
+The project uses `git` for revision control and repository management.  The 
+primary repository store is currently located on:
 
-We will need to establish methodologies for calculating 'rates'.  We can start with simply the timestamps of the message arrival time.  But we also have message size data so we could extend this to a 'bit rate' if required.  Appropriate methodologies for deriving frequency 'rates' could include Moving Average / Sliding Window, Leaky Integrator, etc.
+[University of Illinois, School of Engineering, GitLab](https://gitlab.engr.illinois.edu/wbc3/msfe-ie522-statistical-methods-summer-project)  ![GitLab Logo](https://about.gitlab.com/images/press/logo/svg/gitlab-logo-gray-rgb.svg){height=60px} 
 
-If we consider the black box as being capable of some constant measure of 'processing rate (or work)', and the inbound messages as a measure of incoming work to be processed, we could conceivably model the system as a 'work engine' and establish the parameters such that the work rate in the model reflects the observed work rate as defined by the observed latency in message processing.
 
-An other potential starting place would be to calculate the number of messages 'in queue' based on the arrival times, latency and hence departure times.
+## Git <img alt="Git logo" height="50px" style="vertical-align:middle" src="https://git-scm.com/images/logo@2x.png" />
 
-## Primary goals
+You will need `git` installed to manage changes to the code repository.
 
-Establish parameters to model the message latency (processing time) given a sequence of input messages over time with at least a 95% confidence.
- 
-## Secondary goals
+[Getting Started - Installing Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 
-Establish some data science standard operating procedures and best practices.
+## R and python <img alt="R logo" height="50px" style="vertical-align:middle" src="https://cloud.r-project.org/Rlogo.svg" /> <img alt="python logo" height="50px" style="vertical-align:middle" src="https://www.python.org/static/img/python-logo.png" />
 
-  - Data Governance
-  - Experiment Management
-  - Project Code Structure
-  - Repository & Branching Models
-  - Project Tasks/Experiment Itemization and Prioritization
-  - Documentation and Communication Procedures
+This project primarily uses R for experiments and analysis but also includes
+some python tooling.  Ensure that you have recent versions of these environments
+suitable for your host system (Win, Linux, MacOS, etc).
 
-## Reading List
+[Download and install R](https://cloud.r-project.org/)
 
-## Tools and Methodologies
+[Download and install python](https://www.python.org/downloads/)
 
-## Data Sourcing
+## Tooling to manage localized project development environment
 
-## Possible Exploratory Models
+[renv: Project Environments for R](https://blog.rstudio.com/2019/11/06/renv-project-environments-for-r/) 
 
-### Event frequency distribution
-  
-- Non-homogenous Poisson Oriented Models; Hawkes Process
-- Self-Exciting Point Process
-- Regime Switching
-- ...
+[reticulate: R Interface to Python](https://rstudio.github.io/reticulate/)
 
-### Dynamic Change
+# Setting up your local environment
 
-Step Detection
+## Clone the repository
 
-### Rate / Frequency smoothing
+TODO: _Add note about personal forks and pull requests._
 
-- Moving Average
-- Leaky Integrator
-- Other Sliding Window Techniques
+## Setup localized project environments for R and python.
+
+## Retrieve data with DVC.
+
+## Build Project
+
+# LICENSE [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](MIT.html)
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](MIT.html)
+
