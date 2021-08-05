@@ -2,8 +2,10 @@
 title: "Todo"
 author: "Wes Cravens"
 date: "7/29/2021"
-bibliography: "Bibtex/Mendeley.bib"
-output: html_notebook
+output:
+  html_document:
+    df_print: paged
+bibliography: Bibtex/Mendeley.bib
 ---
 
 ## In Progress

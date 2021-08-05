@@ -1,6 +1,8 @@
 ---
 title: "Project Update Aug. 5th, 2021"
-output: html_notebook
+output:
+  html_document:
+    df_print: paged
 ---
 
 Review [Hawkes Process, Laub 2015](https://arxiv.org/pdf/1507.02822.pdf)

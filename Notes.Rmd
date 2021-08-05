@@ -1,11 +1,11 @@
 ---
 title: "Notes"
 output:
-  html_notebook: default
   html_document:
     toc: yes
     number_sections: yes
     df_print: paged
+  html_notebook: default
 ---
 
 Scratch pad notes that need to be integrated into other documents

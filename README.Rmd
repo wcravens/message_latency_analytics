@@ -4,14 +4,11 @@ author:
 - Wes Cravens, UIUC^[University of Illinois Urbana-Champaign, wbc3@illinois.edu]; Wes Cravens, CMEG^[CME Group(CMEG), wes.cravens@cmegroup.com]; Prof. Liming Feng, UIUC^[UIUC, fenglm@illinois.edu]; \& Haifeng Zheng, CMEG^[CME Group, haifeng.zheng@cmegroup.com]
 date: "08/05/2021"
 output:
-  html_notebook:
-    fig_caption: no
-    toc: yes
-    number_sections: yes
   html_document:
     fig_caption: no
     toc: yes
     number_sections: yes
+    keep_md: yes
 ---
 
 # Table of contents { .unlisted, .unnumbered }
