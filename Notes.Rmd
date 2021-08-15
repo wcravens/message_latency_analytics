@@ -10,6 +10,12 @@ output:
 
 Scratch pad notes that need to be integrated into other documents
 
+## Special Thanks
+
+Haifeng,
+Prof. Feng,
+James Balamuta balamut2@illinois.edu
+
 ## Bibtex Reference Managers
 
 1. [Mendeley](https://www.mendeley.com/download-desktop-new/)
