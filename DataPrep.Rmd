@@ -1,9 +1,9 @@
 ---
 title: "Data Prep"
 output:
+  html_notebook: default
   html_document:
     df_print: paged
-  html_notebook: default
   pdf_document: default
 ---
 
@@ -35,46 +35,71 @@ print( "The MSGW In data is monotonic with regard to event timestamp.")
 
 # Prepare input data for down stream analysis
 
-- Remove "PartyDetailsDefinitionRequest" Messages (they all have duplicate arrival times _and_ `null` processing time)
-- Limit Observation time by `input_limit` in ns; Currently 120 Seconds.
-- Normalize event `arrival_T` at $T_0 = 0$ Method: $T_i = T_i - T_0 \mbox{ for } i=0,...,n$.
-- Convert latency/processing time `PNQM Latency (ms)` to `duration` in nanoseconds
-- Coerce `Msg Type` into new [`factor`](https://r4ds.had.co.nz/factors.html) `type`
-- Number events in `N`
-- Spread out messages with duplicate arrival times; Method: $T_i = T_i + k \mbox{ for } i = 0,...,n \mbox{ for } k=0..d$ where $d = $ number of duplicates at $T_i$ 
-- Calculate inter-message `delta_t` in nanoseconds
-- Calculate event stop time, `departure_T`, in nanoseconds
+1. Limit data set to a couple of minutes to speed up initial analytics.
+
+2. Remove "PartyDetailsDefinitionRequest" Messages (they all have duplicate arrival times _and_ `null` processing time)
+
+3. Normalize event `arrival_T` at $T_0 = 0$ Method: $T_i = T_i - T_0 \mbox{ for } i=0,...,n$.
+
+4. Convert latency/processing time `PNQM Latency (ms)` to `duration` in nanoseconds
+
+5. Use `Msg Type` as new factor `type`
+
+6. Identify and label events with duplicate time-stamps.  Add a group total count and each individual event's number in the duplicated group to the data.
+
+7. Number all events sequentially starting at 1 and incrementing by 1 for each new event arrival.  Store the individual event number in `N`
+
+8. Spread out messages with duplicate arrival times by altering the arrival timestamp; Method: $T_i = T_i + k \mbox{ for } i = 0,...,n \mbox{ for } k=0..d$ where $d = $ number of duplicates at $T_i$ 
+
+    I can find the specifics later.  But I did look at the impact of this and
+    noticed that the amount of 'adjustment' necessary was considerably smaller
+    than the next 'smallest' gap between events.  An other method would have 
+    been to increast the precision of our number and using the least significant 
+    part to spread the message out in fraction of time about the duplicated 
+    arrival time.  The first option was considered much more reasonable and
+    easier to ensure we get correct.
+    
+9. Calculate inter-message `delta_t` in nanoseconds
+
+10. Calculate event stop time, `departure_T`, in nanoseconds
+
+11. Build the new data table out of the `N`, `arrival_t`, `delta_t`, `type`, `duration`, and `departure_T` fields.
+
 
 ```{r prepare_event_data}
-input_time_limit <- 120e9 # Two minutes (120 Seconds) in ns
+time_limit <- 2 * 60 * 1e9 # Two minutes in ns
 
 event_data <- .msgw_in_import %>%
-  filter( !`Msg Type` %in% c( "PartyDetailsDefinitionRequest" ) ) %>%
-  { if( input_time_limit ) filter(  ., ts_ns < first(ts_ns) + input_time_limit ) } %>%
+ 
+  { if( time_limit ) filter(  ., ts_ns < first(ts_ns) + time_limit ) } %>% #  1.
+  
+  filter( !`Msg Type` %in% c( "PartyDetailsDefinitionRequest" ) ) %>% #       2.
+  
   mutate(
-    t = ts_ns - first(ts_ns),
-    duration = as.numeric( na_if( `PNQM Latency (ms)`, "null" ) ) * 1e6,
-    type = as.factor( `Msg Type` )
+    t = ts_ns - first(ts_ns),  #                                              3.
+    duration = as.numeric( na_if( `PNQM Latency (ms)`, "null" ) ) * 1e6, #    4.
+    type = as.factor( `Msg Type` ) #                                          5.
   ) %>%
+  
   group_by( t ) %>%
   mutate(
-    dup_count = n() - 1,
-    dup_number = row_number() - 1
+    duplicate_count = n() - 1, #                                              6.
+    duplicate_number = row_number() - 1
   ) %>%
-  select( t, duration, type, dup_count, dup_number ) %>%
+  select( t, duration, type, duplicate_count, duplicate_number ) %>%
   ungroup() %>%
   arrange( t ) %>%
+  
   mutate(
-    N = row_number(),
-    arrival_T = t + dup_number,
-    delta_t = arrival_T - lag(arrival_T),
-    departure_T = arrival_T + duration
+    N = row_number(), #                                                       7.
+    arrival_T = t + duplicate_number, #                                       8.
+    delta_t = arrival_T - lag(arrival_T), #                                   9.
+    departure_T = arrival_T + duration #                                     10.
   ) %>%
-  select( N, arrival_T, delta_t, type, duration, departure_T )
-
-event_data
+  select( N, arrival_T, delta_t, type, duration, departure_T ) # 11.
 ```
-Successfully loaded `r nrow( event_data )` observations from the first $input_limit$ nanoseconds of our event data.
+
+Successfully loaded `r nrow( event_data )` observations from the first `r time_limit` nanoseconds of our event data.
 
 
 # Calculate Number of Concurrent Events
