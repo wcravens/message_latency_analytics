@@ -17,16 +17,23 @@ library( bit64 )
 library( psych )
 ```
 
-# Import message data from csv source.
+## Import message data from csv source.
 
 ```{r msgw_in_import}
 .msgw_in_import <- rio::import( "./Data/eqfa-msgw-in-0709.txt", format="csv" )
+```
+
+```{r import_data_is_monotonic}
 is_monotonic <- all(.msgw_in_import$ts_ns == cummax(.msgw_in_import$ts_ns) )
 if( !is_monotonic ) stop("Input data is not monotonic on timestamp, ts_ns." )
+print( "The MSGW In data is monotonic with regard to event timestamp.")
+```
+
+```{r quick_view_of_raw_import_data, echo=FALSE, eval=FALSE }
 .msgw_in_import
 ```
 
-# Clean input data data
+# Prepare input data for down stream analysis
 
 - Remove "PartyDetailsDefinitionRequest" Messages (they all have duplicate arrival times _and_ `null` processing time)
 - Limit Observation time by `input_limit` in ns; Currently 120 Seconds.
