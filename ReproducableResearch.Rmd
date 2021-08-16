@@ -32,3 +32,24 @@ rather than infrastructure or standards.
 
 Using standard R Package structure is a common, familiar, and well documented standard.
 
+## Project Arch - Steps/Processes in the standard pipeline
+
+[https://blog.dataiku.com/2019/07/04/fundamental-steps-data-project-success](7 Fundamental Steps to Complete a Data Analytics Project)
+
+## Workflows
+
+### [OSEMN - A Taxonomy of Data Science](http://www.dataists.com/2010/09/a-taxonomy-of-data-science/)
+
+[5 Steps of a Data Science Project Lifecycle](https://towardsdatascience.com/5-steps-of-a-data-science-project-lifecycle-26c50372b492)
+
+### [Development Workflows for Data Scientists](https://resources.github.com/downloads/development-workflows-data-scientists.pdf)
+
+### [EDA - R For Data Science](https://r4ds.had.co.nz/exploratory-data-analysis.html)
+
+- Variance
+- Typical Values
+- A-Typical Values (Outliers)
+- Missing Values
+- Covariance
+- Patterns and Seasonality
+

@@ -12,108 +12,184 @@ bibliography: Bibtex/Mendeley.bib
 
 ## Next
 
-- [.] Add Contribution and Project setup instructions to the README
-- [ ] [Point Process](https://en.wikipedia.org/wiki/Point_process)
-  - [ ] [Understanding Point Process Model - Tutorial](https://towardsdatascience.com/understanding-point-process-model-with-r-983553ca2a86)
-- [ ] Join concurrent event size with event_data on arrival_t = t
-- [ ] Plot Scatter plot of lag( Concurrent Event Size ) against Duration
-- [ ] [ggplot step function](http://sape.inf.usi.ch/quick-reference/ggplot2/geom_step)
-- [ ] [Descriptive Statistics](https://methodenlehre.github.io/SGSCLM-R-course/descriptive-statistics.html)
-- [ ] Calculate 'Leaky Integrator' value
-- [ ] Homogeneity tests
-  - [ ] [Inhomogeneity vs Clustering](https://blog.valdosta.edu/andersonlab/2018/05/03/point-pattern-analysis-visualizing-and-testing-for-inhomogeneity-by-dr-anderson/)
-  - [ ] What time-based window size 'breaks' homogeneity; Change point detection;
-  - [ ] Homegrown analysis; Variance of delta_t
-  - [ ] [homtests](https://search.r-project.org/CRAN/refmans/homtest/html/HOMTESTS.html)
-  - [ ] [snht](https://cran.r-project.org/web/packages/snht/snht.pdf)
-  - [ ] [Google Search](https://www.google.com/search?q=Homogeneity+Test&domains=r-project.org&sitesearch=r-project.org)
-  - [ ] Determine window size for maximum variance
-  - [ ] Determine window size for most 'normal' distribution
+-   [ ] Convert viz to [ggplot2](https://ggplot2-book.org/)
 
+-   [ ] [ggplot step function](http://sape.inf.usi.ch/quick-reference/ggplot2/geom_step)
+
+-   [ ] Compare simulation of standard poisson to current visualization results
+
+-   [ ] Test for Homogeneity
+
+-   [ ] Fit our observations to Hawkes Process
+
+-   [ ] MLE analysis of our model fit
+
+-   [ ] Simulate new data from our model
+
+-   [.] Add Contribution and Project setup instructions to the README
+
+-   [ ] [Point Process](https://en.wikipedia.org/wiki/Point_process)
+
+    -   [ ] [Understanding Point Process Model - Tutorial](https://towardsdatascience.com/understanding-point-process-model-with-r-983553ca2a86)
+
+-   [ ] Join concurrent event size with event_data on arrival_t = t
+
+-   [ ] Plot Scatter plot of lag( Concurrent Event Size ) against Duration
+
+-   [ ] Research R Project Templating
+
+  -   [ ] Build CME R Project Template
+
+-   [ ] [Descriptive Statistics](https://methodenlehre.github.io/SGSCLM-R-course/descriptive-statistics.html)
+
+-   [ ] Calculate 'Leaky Integrator' value
+
+-   [ ] Homogeneity tests
+
+    -   [ ] [Inhomogeneity vs Clustering](https://blog.valdosta.edu/andersonlab/2018/05/03/point-pattern-analysis-visualizing-and-testing-for-inhomogeneity-by-dr-anderson/)
+    -   [ ] What time-based window size 'breaks' homogeneity; Change point detection;
+    -   [ ] Homegrown analysis; Variance of delta_t
+    -   [ ] [homtests](https://search.r-project.org/CRAN/refmans/homtest/html/HOMTESTS.html)
+    -   [ ] [snht](https://cran.r-project.org/web/packages/snht/snht.pdf)
+    -   [ ] [Google Search](https://www.google.com/search?q=Homogeneity+Test&domains=r-project.org&sitesearch=r-project.org)
+    -   [ ] Determine window size for maximum variance
+    -   [ ] Determine window size for most 'normal' distribution
 
 ## Reading
 
 ### Best Practices
-  
-  - [ ] [How R Helps Airbnb Make the Most of its Data](https://www.tandfonline.com/doi/full/10.1080/00031305.2017.1392362)
-  - [ ] [Using R packages and education to scale Data Science at Airbnb](https://medium.com/airbnb-engineering/using-r-packages-and-education-to-scale-data-science-at-airbnb-906faa58e12d)
-  - [ ] [Reproducability Guide](https://ropensci.github.io/reproducibility-guide/)
-  - [ ] [R Open Sci](https://ropensci.org/)
-  
+
+-   [ ] [How R Helps Airbnb Make the Most of its Data](https://www.tandfonline.com/doi/full/10.1080/00031305.2017.1392362)
+-   [ ] [Using R packages and education to scale Data Science at Airbnb](https://medium.com/airbnb-engineering/using-r-packages-and-education-to-scale-data-science-at-airbnb-906faa58e12d)
+-   [ ] [Reproducability Guide](https://ropensci.github.io/reproducibility-guide/)
+-   [ ] [R Open Sci](https://ropensci.org/)
+-   [ ] "Inside the Black Box, Ch. 9 - Research"
+
 ### Stats
 
-  - [ ] [Kernel Smoothing/local regression vs Moving Average](https://stats.stackexchange.com/questions/205178/difference-between-local-regression-and-moving-average-for-smoothing)
-  - [ ] [Introduction to Simulation using R](https://www.probabilitycourse.com/chapter13/Chapter_13.pdf)
-  - [ ] [Statistial Inference](https://www.probabilitycourse.com/chapter8/8_1_0_intro.php)
-  - [ ] [Hawkes Processes - Laub, Taimre, Pollet](https://arxiv.org/pdf/1507.02822.pdf)
-  - [ ] [Simulation, Estimation and Applications of Hawkes Processes](https://scse.d.umn.edu/sites/scse.d.umn.edu/files/obral_master.pdf)
-  - [ ] [Algorithms for Unevenly Spaced Time Series: Moving Averages and Other Rolling Operators](http://www.eckner.com/papers/Algorithms%20for%20Unevenly%20Spaced%20Time%20Series.pdf)
-  - [ ] [https://arxiv.org/pdf/2102.05724.pdf](https://arxiv.org/pdf/2102.05724.pdf)
-  - [ ] [Introduction to Point Processes - Daley](file:///home/wcravens/Downloads/Daley-Vere-Jones2003_Book_AnIntroductionToTheTheoryOfPoi.pdf)
-)
-  - [ ] [Review Autogressive Models]()
-  - [ ] [Queuing Process](https://www.statistics.com/glossary/queuing-process/)
-  - [ ]
-      - https://cran.r-project.org/web/packages/hawkesbow/index.html
-      - https://cran.r-project.org/web/packages/hawkesbow/hawkesbow.pdf
-      - https://search.r-project.org/CRAN/refmans/hawkes/html/simulateHawkes.html
-      - [Hawkes Process](https://arxiv.org/abs/1507.02822)
-  
+-   [ ] [Kernel Smoothing/local regression vs Moving Average](https://stats.stackexchange.com/questions/205178/difference-between-local-regression-and-moving-average-for-smoothing)
+
+-   [ ] [Introduction to Simulation using R](https://www.probabilitycourse.com/chapter13/Chapter_13.pdf)
+
+-   [ ] [Statistial Inference](https://www.probabilitycourse.com/chapter8/8_1_0_intro.php)
+
+-   [ ] [Hawkes Processes - Laub, Taimre, Pollet](https://arxiv.org/pdf/1507.02822.pdf)
+
+-   [ ] [Simulation, Estimation and Applications of Hawkes Processes](https://scse.d.umn.edu/sites/scse.d.umn.edu/files/obral_master.pdf)
+
+-   [ ] [Algorithms for Unevenly Spaced Time Series: Moving Averages and Other Rolling Operators](http://www.eckner.com/papers/Algorithms%20for%20Unevenly%20Spaced%20Time%20Series.pdf)
+
+-   [ ] <https://arxiv.org/pdf/2102.05724.pdf>
+
+-   [ ] [Introduction to Point Processes - Daley](file:///home/wcravens/Downloads/Daley-Vere-Jones2003_Book_AnIntroductionToTheTheoryOfPoi.pdf) )
+
+-   [ ] [Review Autogressive Models]()
+
+-   [ ] [Queuing Process](https://www.statistics.com/glossary/queuing-process/)
+
+-   [ ]
+
+    -   <https://cran.r-project.org/web/packages/hawkesbow/index.html>
+    -   <https://cran.r-project.org/web/packages/hawkesbow/hawkesbow.pdf>
+    -   <https://search.r-project.org/CRAN/refmans/hawkes/html/simulateHawkes.html>
+    -   [Hawkes Process](https://arxiv.org/abs/1507.02822)
+
 ## Backlog ( In no particular order )
-- [ ] HOWTO: $\LaTeX$ in plot labels
-- [ ] Document the 'Ubiquitous Language'; e.g. converting from message centric names to event centric.
-- [ ] Input data Metrics
-  - [ ] Time Frame/Duration of Observation Data
-  - [ ] Percentage of 'incomplete' records; e.g. 'null' in Latency field 
-  - [ ] Total number of observations
-  - [ ] Number of message 'stacks' that we have because of duplicate arrival times.
-  - [ ] Add some sort of metrics report and/or processing log to input data manipulation/processing
-- [ ] Working Data (After input processing) Metrics
-  - [ ] Duration of observations
-  - [ ] Observation/Event Count
-  - [ ] Distribution delta_t
-- [ ] HOWTO: Setup [targets](https://books.ropensci.org/targets) for the project
-  - [ ] HOWTO: Compare data tracking methods between `target`, `repo` and `dvc`.
-    - [ ] Add initial data prep target
-    - [ ] Register resulting data prep data (with dvc or other manager) along with a smaller testing/dev subset (for speed)
-- [ ] HOWTO: Repeatable Research structure
-  - [ ] Refactor project structure into a standard Repeatable Research model.
-  - [ ] Refactor generic routines into functions kept in 'lib' files ( R Scripts or separate notebooks)
-- [ ] Bibtex references throughout R Markdown/Bookdown; Global option for bibliography?
-- [ ] Identify periodic 'publication' documents needed on a project (e.g. Meeting Minutes/Outcomes, Work log, project metrics, etc)
-- [ ] Reading List, reference groups, priorities and Bibtex
-- [ ] Status update / report on current state of the project
-- [ ] Read up on [Index of Dispersion](https://en.wikipedia.org/wiki/Index_of_dispersion)
-- [ ] Try and fit a hawkes process to our event data
-- [ ] Explore histogram bin count to maximize delta between min and max count
-- [ ] Calculate running msg queue size
-- [ ] Convert viz to ggplot2
-- [ ] Evaluate need for run time Data Provenance and appropriate tooling.
-- [ ] Compared and evaluate R Project Directory structure models from Reproducible Research CRAN Task Group
-- [ ] Documentation and Reporting Standard Operating Procedures for DS/ML Projects
-- [ ] Formalize process for CSV Schema and Input Data Version (separate to revision)
+
+-   [ ] HOWTO: $\LaTeX$ in plot labels
+
+-   [ ] Document the 'Ubiquitous Language'; e.g. converting from message centric names to event centric.
+
+-   [ ] Input data Metrics
+
+    -   [ ] Time Frame/Duration of Observation Data
+    -   [ ] Percentage of 'incomplete' records; e.g. 'null' in Latency field
+    -   [ ] Total number of observations
+    -   [ ] Number of message 'stacks' that we have because of duplicate arrival times.
+    -   [ ] Add some sort of metrics report and/or processing log to input data manipulation/processing
+
+-   [ ] Working Data (After input processing) Metrics
+
+    -   [ ] Duration of observations
+    -   [ ] Observation/Event Count
+    -   [ ] Distribution delta_t
+
+-   [ ] HOWTO: Setup [targets](https://books.ropensci.org/targets) for the project
+
+    -   [ ] HOWTO: Compare data tracking methods between `target`, `repo` and `dvc`.
+
+        -   [ ] Add initial data prep target
+        -   [ ] Register resulting data prep data (with dvc or other manager) along with a smaller testing/dev subset (for speed)
+
+-   [ ] HOWTO: Repeatable Research structure
+
+    -   [ ] Refactor project structure into a standard Repeatable Research model.
+    -   [ ] Refactor generic routines into functions kept in 'lib' files ( R Scripts or separate notebooks)
+
+-   [ ] Bibtex references throughout R Markdown/Bookdown; Global option for bibliography?
+
+-   [ ] Identify periodic 'publication' documents needed on a project (e.g. Meeting Minutes/Outcomes, Work log, project metrics, etc)
+
+-   [ ] Reading List, reference groups, priorities and Bibtex
+
+-   [ ] Status update / report on current state of the project
+
+-   [ ] Read up on [Index of Dispersion](https://en.wikipedia.org/wiki/Index_of_dispersion)
+
+-   [ ] Try and fit a hawkes process to our event data
+
+-   [ ] Explore histogram bin count to maximize delta between min and max count
+
+-   [ ] Calculate running msg queue size
+
+-   [ ] Evaluate need for run time Data Provenance and appropriate tooling.
+
+-   [ ] Compared and evaluate R Project Directory structure models from Reproducible Research CRAN Task Group
+
+-   [ ] Documentation and Reporting Standard Operating Procedures for DS/ML Projects
+
+-   [ ] Formalize process for CSV Schema and Input Data Version (separate to revision)
 
 ## Done
-- [x] Move contents of README into 'Introduction' notebook
-- [x] Calculate concurrent event overlap size
-- [x] Add monotonic test on `ts_ns` in `.msgw_in_import` data.
-- [x] Start outline of best practices, needs and methodologies
-- [x] Reference Manager App Evaluations (Jabref, Mendeley, Zotero)
-  - Mendeley seems to have been the one I've stuck with so far.
-- [x] Evaluate and setup [DVC](dvc.org) for tracking/versioning data resources and history.
-- [x] Setup basic Metalsmith static site generator.
-  - Will probably let this go in favor of an R Markdown based solution.
-- [x] [R Markdown, Bookdown and Knitr](https://bookdown.org/yihui/rmarkdown/)
-- [x] Bibtex integration into R Markdown/Bookdown
-- [x] Setup renv for project
-- [x] Factor away the lib file for unzipping data
-- [x] Add CSV Schema for our input data csv files
-- [x] Convert run.r to an R Notebook
-- [x] Clean up initial data prep
-- [x] Offset message arrival time for duplicate arrival times.
-- [x] Normalize on Tidyverse libraries/packages
-- [x] Convert `Msg Type` to factor `type`
-- [abort] Implement  [knitr's code externalization](https://yihui.org/knitr/demo/externalization/) for `lib` and `run.r`
-  
+
+-   [x] Move contents of README into 'Introduction' notebook
+
+-   [x] Calculate concurrent event overlap size
+
+-   [x] Add monotonic test on `ts_ns` in `.msgw_in_import` data.
+
+-   [x] Start outline of best practices, needs and methodologies
+
+-   [x] Reference Manager App Evaluations (Jabref, Mendeley, Zotero)
+
+    -   Mendeley seems to have been the one I've stuck with so far.
+
+-   [x] Evaluate and setup [DVC](dvc.org) for tracking/versioning data resources and history.
+
+-   [x] Setup basic Metalsmith static site generator.
+
+    -   Will probably let this go in favor of an R Markdown based solution.
+
+-   [x] [R Markdown, Bookdown and Knitr](https://bookdown.org/yihui/rmarkdown/)
+
+-   [x] Bibtex integration into R Markdown/Bookdown
+
+-   [x] Setup renv for project
+
+-   [x] Factor away the lib file for unzipping data
+
+-   [x] Add CSV Schema for our input data csv files
+
+-   [x] Convert run.r to an R Notebook
+
+-   [x] Clean up initial data prep
+
+-   [x] Offset message arrival time for duplicate arrival times.
+
+-   [x] Normalize on Tidyverse libraries/packages
+
+-   [x] Convert `Msg Type` to factor `type`
+
+-   [abort] Implement [knitr's code externalization](https://yihui.org/knitr/demo/externalization/) for `lib` and `run.r`
+
 Demo reference: @Sarvotham2001
-  
