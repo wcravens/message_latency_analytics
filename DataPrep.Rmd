@@ -51,13 +51,13 @@ print( "The MSGW In data is monotonic with regard to event timestamp.")
 
 8. Spread out messages with duplicate arrival times by altering the arrival timestamp; Method: $T_i = T_i + k \mbox{ for } i = 0,...,n \mbox{ for } k=0..d$ where $d = $ number of duplicates at $T_i$ 
 
-    I can find the specifics later.  But I did look at the impact of this and
-    noticed that the amount of 'adjustment' necessary was considerably smaller
-    than the next 'smallest' gap between events.  An other method would have 
-    been to increast the precision of our number and using the least significant 
-    part to spread the message out in fraction of time about the duplicated 
-    arrival time.  The first option was considered much more reasonable and
-    easier to ensure we get correct.
+We can find the specifics later.  But I did look at the impact of this and
+noticed that the amount of 'adjustment' necessary was considerably smaller
+than the next 'smallest' gap between events.  An other method would have 
+been to increase the precision of our number and using the least significant 
+part to spread the message out in fraction of time about the duplicated 
+arrival time.  The first option was considered much more reasonable and
+easier to ensure we get correct.
     
 9. Calculate inter-message `delta_t` in nanoseconds
 
@@ -101,35 +101,6 @@ event_data <- .msgw_in_import %>%
 
 Successfully loaded `r nrow( event_data )` observations from the first `r time_limit` nanoseconds of our event data.
 
-
-# Calculate Number of Concurrent Events
-
-- Create temporary lists of arrival and departure times for events; Add a step
-size column of 1 and -1 respectively.
-- Merge the arrival and departure tables together, order by time and then count
-the cumulative sum of the assigned step size.
-- Merge the concurrent event size data with the working event data on arrival
-time so that we know the number of events in process when new events arrive
-```{r concurrent_events_queue}
-.arrivals <- event_data %>%
-  filter( !is.na( departure_T ), departure_T != 0 ) %>%
-  mutate( t = arrival_T, step = 1 ) %>%
-  select( t, step )
-
-.departures <- event_data %>%
-  filter( !is.na( departure_T ), departure_T != 0 ) %>%
-  mutate( t = departure_T, step = -1 ) %>%
-  select( t, step )
-
-.concurrent_event_count <- bind_rows( .arrivals, .departures ) %>%
-  arrange( t ) %>%
-  mutate( count = cumsum( step ))
-
-event_data <- event_data %>%
-  left_join( .concurrent_event_count, by=c('arrival_T' = 't' ) ) %>%
-  rename( 'concurrent_event_count' = 'count' ) %>% 
-  select( -'step' ) 
-```
 
 ## Vizualizations concerning Event Arrival Time 
 ```{r viz-arrival_T}
