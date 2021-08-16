@@ -123,7 +123,7 @@ plot( event_data$arrival_T, delta_t, col="blue", pch=19, xlab="Event Time in ns"
 plot( head( delta_t, 1000 ), head( event_data$duration, 1000 ), pch=19, col="blue", xlab="Inter-Event Delta_t", ylab="Duration of Event in ns", main="Event Duration against Inter-Event Delta_t" )
 
 hist( as.numeric( delta_t), col="blue", main="Histogram of Inter-event Delta_t", xlab="Delta_t in Nanoseconds")
-hist( log( as.numeric( delta_t)), col="blue", main="Histogram of log( Inter-event Delta_t )", xlab="log(Delta_t) in Nanoseconds")
+#hist( log( as.numeric( delta_t)), col="blue", main="Histogram of log( Inter-event Delta_t )", xlab="log(Delta_t) in Nanoseconds")
 
 {
   qqnorm( as.numeric( delta_t ) )
