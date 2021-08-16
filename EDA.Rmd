@@ -5,7 +5,7 @@ output: html_notebook
 
 In this section we will attempt to gain some insight into the general nature 
 of our data from mostly a descriptive statistics perspective through the use
-of some visualizate and light calculations.  We aren't trying to discover the
+of some visualization and light calculations.  We aren't trying to discover the
 exact mathematics that would result in good models for our observations.
 Rather we are just trying to develop a modest but reasonable understanding of
 our data. These results will help us determine how to focus our efforts
@@ -87,16 +87,36 @@ downstream.
 ## Visualizations concering inter-event delta_t
 ```{r viz-delta_t}
 . <- event_data %>%
-  #slice( -1 ) %>%
   mutate( delta_t = replace_na( as.numeric( delta_t ), 0 ) ) %>%
   select( delta_t )
 delta_t = .$delta_t
+```
 
-str(delta_t)
+## Summary of the disribution for delta_t
+```{r}
 summary(delta_t)
+```
+
+## Some common statistical metrics for our series of delta_t
+```{r}
 describe(delta_t) 
-acf(delta_t)
-pacf(delta_t)
+```
+
+
+## Inter-event delta_t Autocorrelation
+``` {r}
+acf(delta_t, main="")
+```
+
+## Inter-Event delta_t Partial Autocorrelation
+```{r}
+pacf(delta_t, main="")
+```
+
+
+
+
+```{r}
 
 plot( event_data$arrival_T, delta_t, col="blue", pch=19, xlab="Event Time in ns", ylab="Inter-Event Delta_t in ns", main="Inter-Event Delta_t against Event Time" )
 
