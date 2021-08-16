@@ -15,20 +15,74 @@ model the features and characteristics in our observations.
 ## Vizualizations concerning Event Arrival Time 
 
 ```{r viz-arrival_T}
-hist( as.numeric( event_data$arrival_T ), breaks=120, col="blue", xlab = "Event Time in ns over the first two minutes of data.", main="Histogram of Event Freq per Sec" )
+hist( as.numeric( event_data$arrival_T ), breaks=120, col="blue", xlab = "Event arrival time in ns over the first two minutes of data.", main="Histogram of Event Arrival Count per Sec" )
+```
+It's notable that we chose to use 120 breaks in our histogram so that the bars
+in the visualization all represent a 1 second time frame.  Although we should be
+careful to not infer too much from this graph in terms of patterns or distributions;
+we can at least see that there is certainly some variance in the rate of events
+per seconds in our initial data set.
 
+As a quick note, I think it's important that we mentioned the hesitation to
+reach any particular conclusions from our results so far.  That will be a very
+common feature of this section of the project.  It's crucially important that
+practitioners don't let the early (and relatively trivial) analysis overly
+influence later work.  It's far to easy to later find yourself spending a lot
+of time and effort on an unproductive line of inquiry because of misplaced
+enthusiasm in an overvalued result in this early stage.
+
+Next we have a quick look at a few strip charts that simply plot the one
+dimensional arrival time of consecutive messages. We are looking for any breaks
+in homogeneity at different time scales.
+
+```{r}
 par(mfrow=c( 4, 1 ) )#, mai=c(0.1, 0.1, 0.1, 0.1) )
-stripchart( as.numeric( head( event_data$arrival_T, 10000 ) ), pch=19, cex=0.5, col="blue", xlab="Event Time in ns", main="1-D Stripchart of Event Time; first 10000 observations." )
-stripchart( as.numeric( head( event_data$arrival_T, 1000 ) ), pch=19, cex=0.5, col="blue", xlab="Event Time in ns", main="1-D Stripchart of Event Time; first 1000 observations." )
+stripchart( as.numeric( head( event_data$arrival_T, 10000 ) ), pch=19, cex=0.5, col="blue", xlab="Event Time in ns", main="1-D Stripchart of Event Arrival Time for the first 10000 observations." )
+stripchart( as.numeric( head( event_data$arrival_T, 1000 ) ), pch=19, cex=0.5, col="blue", xlab="Event Time in ns", main="1-D Stripchart of Event Arrival Time for the first 1000 observations." )
 stripchart( as.numeric( head( event_data$arrival_T, 100 ) ), pch=19, cex=0.5, col="blue", xlab="Event Time in ns", main="1-D Stripchart of Event Time; first 100 observations." )
 stripchart( as.numeric( head( event_data$arrival_T, 10 ) ), pch=19, cex=0.5, col="blue", xlab="Event Time in ns", main="1-D Stripchart of Event Time; first 10 observations." )
 par( mfrow=c(1, 1) )
+```
 
+Given our understanding of the domain for the events that we are studying, we do
+expect to build evidence to confirm that event arrival times are 'bursty'
+in nature, but with a relatively homogeneous distribution in the 'noise floor' 
+for the observed arrival times. 
+
+Each of our strip charts above plot a sample size that is an order of magnitude
+smaller that the one above it.  As was expected this confirms that at the extremes
+the events seem more homogeneous, but there appears to be a break in symmetry to be
+discovered by looking at the appropriate scales.  It's should be noted that the
+data was split on sample size, not a time domain. So the number of observations
+in each plot is proportionally related to those next to it.  However, the magnitude of
+time represented along the abscissa is not necessary as proportionally related.
+
+Studying the data along relative time scales could certainly be an interesting
+thing to do later.  But it must be clear that in these charts we are not doing so.
+
+In our next series of plots we are doing something very similar but extending it out
+in a second dimension.  The event points are now spread out vertically
+to show the inter-event time gap immediately preceding each event.  We are again
+looking for breaks in homogeneity that can help us confirm, or not, our assumption
+that the events are bursty in nature.  Similar to above, we can certain
+see what appears to be some level of clustering in the data.  However it's far
+from clear.  It's a recognized phenomena that random and independent data
+can manifest grouping and clustering patterns.  We'll need more rigorous analysis
+to prove that in our system there is the inter-event relationships and
+self-excitation that would result in the grouping and clustering of our events.
+And even more analysis to ultimately parameterize any observable excitation into a model.
+
+```{r}
 plot( head( event_data$arrival_T, 10000 ), head( event_data$delta_t, 10000 ), col="blue", pch=19, xlab="Event Time in ns", ylab="Inter-Event Delta_t in ns", main="Inter-Event Delta_t against Event Time" )
 plot( head( event_data$arrival_T, 1000 ), head( event_data$delta_t, 1000 ), col="blue", pch=19, xlab="Event Time in ns", ylab="Inter-Event Delta_t in ns", main="Inter-Event Delta_t against Event Time" )
 plot( head( event_data$arrival_T, 100 ), head( event_data$delta_t, 100 ), col="blue", pch=19, xlab="Event Time in ns", ylab="Inter-Event Delta_t in ns", main="Inter-Event Delta_t against Event Time" )
 plot( head( event_data$arrival_T, 10 ), head( event_data$delta_t, 10 ), col="blue", pch=19, xlab="Event Time in ns", ylab="Inter-Event Delta_t in ns", main="Inter-Event Delta_t against Event Time" )
 ```
+In any case, we can definitely see some break in homogeneity in the data.  Certainly
+nothing that would imply any confidence that it's something more than chance, but
+at least enough that we can leave this line of study open for closer inspection
+downstream.
+
 
 ## Visualizations concering inter-event delta_t
 ```{r viz-delta_t}
