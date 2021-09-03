@@ -12,7 +12,7 @@ output:
 library( tidyverse )
 library( tibble )
 library( dplyr )
-library( rio )
+# library( rio )
 library( bit64 )
 library( psych )
 ```
@@ -152,8 +152,8 @@ hist( log( as.numeric( delta_t)), col="blue", main="Histogram of log( Inter-even
 ```{r explore_concurent_events}
 
   
-plot( queue$t, queue$size, type="l", col="blue", pch=19, cex=0.5, main="Concurrent Event Count at Time t.", xlab='Time t in Nanoseconds', ylab="Concurrent event count" )
-hist( log( queue$size ), col="blue", main="Histogram of log( Concurrent Event Count )", xlab="log( Concurrent Event Count )")
+#plot( event_data$t, event_data$size, type="l", col="blue", pch=19, cex=0.5, main="Concurrent Event Count at Time t.", xlab='Time t in Nanoseconds', ylab="Concurrent event count" )
+#hist( log( event_data$size ), col="blue", main="Histogram of log( Concurrent Event Count )", xlab="log( Concurrent Event Count )")
 ```
 ```{r viz_concurrent_vs_duration}
 
