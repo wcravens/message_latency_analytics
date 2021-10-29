@@ -1,6 +1,8 @@
 ---
 title: "Introduction"
-output: html_notebook
+output:
+  pdf_document: default
+  html_notebook: default
 editor_options:
   chunk_output_type: inline
 ---

@@ -1,20 +1,18 @@
 ---
 title: "Notes"
 output:
+  pdf_document: default
   html_document:
-    toc: yes
-    number_sections: yes
     df_print: paged
-  html_notebook: default
 ---
 
 Scratch pad notes that need to be integrated into other documents
 
 ## Special Thanks
 
-Haifeng,
-Prof. Feng,
-James Balamuta balamut2@illinois.edu
+Haifeng Zeng (CME Group),
+Prof. Liming Feng (UIUC),
+Prof. James Balamuta <balamut2@illinois.edu> (UIUC)
 
 ## Bibtex Reference Managers
 

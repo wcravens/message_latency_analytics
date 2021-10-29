@@ -1,6 +1,8 @@
 ---
 title: "Inital Exploratory Data Analysis"
-output: html_notebook
+output:
+  pdf_document: default
+  html_notebook: default
 ---
 
 In this section we will attempt to gain some insight into the general nature 
@@ -36,7 +38,7 @@ dimensional arrival time of consecutive messages. We are looking for any breaks
 in homogeneity at different time scales.
 
 ```{r}
-par(mfrow=c( 4, 1 ) )#, mai=c(0.1, 0.1, 0.1, 0.1) )
+par(mfrow=c( 4, 1 ), mai=c(0.1, 0.1, 0.1, 0.1) )
 stripchart( as.numeric( head( event_data$arrival_T, 10000 ) ), pch=19, cex=0.5, col="blue", xlab="Event Time in ns", main="1-D Stripchart of Event Arrival Time for the first 10000 observations." )
 stripchart( as.numeric( head( event_data$arrival_T, 1000 ) ), pch=19, cex=0.5, col="blue", xlab="Event Time in ns", main="1-D Stripchart of Event Arrival Time for the first 1000 observations." )
 stripchart( as.numeric( head( event_data$arrival_T, 100 ) ), pch=19, cex=0.5, col="blue", xlab="Event Time in ns", main="1-D Stripchart of Event Time; first 100 observations." )

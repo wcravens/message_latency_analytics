@@ -1,9 +1,8 @@
 ---
 title: "Reproducable Research"
 output:
-  html_notebook:
-    toc: yes 
-    number_sections: yes
+  pdf_document: default
+  html_notebook: default
 ---
 # Reproduceable Research
 

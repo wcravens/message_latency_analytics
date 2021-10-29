@@ -3,8 +3,8 @@ title: "Todo"
 author: "Wes Cravens"
 date: "7/29/2021"
 output:
-  html_document:
-    df_print: paged
+  pdf_document: default
+  html_notebook: default
 bibliography: Bibtex/Mendeley.bib
 ---
 
@@ -96,7 +96,7 @@ bibliography: Bibtex/Mendeley.bib
 
 ## Backlog ( In no particular order )
 
--   [ ] HOWTO: $\LaTeX$ in plot labels
+-   [ ] HOWTO: LaTeX in plot labels
 
 -   [ ] Document the 'Ubiquitous Language'; e.g. converting from message centric names to event centric.
 
