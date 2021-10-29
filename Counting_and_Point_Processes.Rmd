@@ -1,5 +1,0 @@
----
-title: "Counting and Point Processes"
-output: html_notebook
----
-

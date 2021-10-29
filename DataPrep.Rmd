@@ -101,4 +101,32 @@ event_data <- .msgw_in_import %>%
 
 Successfully loaded `r nrow( event_data )` observations from the first `r time_limit` nanoseconds of our event data.
 
+# Calculate Number of Concurrent Events
 
+- Create temporary lists of arrival and departure times for events; Add a step
+size column of 1 and -1 respectively.
+- Merge the arrival and departure tables together, order by time and then count
+the cumulative sum of the assigned step size.
+- Merge the concurrent event size data with the working event data on arrival
+time so that we know the number of events in process when new events arrive
+
+```{r concurrent_events_queue}
+.arrivals <- event_data %>%
+  filter( !is.na( departure_T ), departure_T != 0 ) %>%
+  mutate( t = arrival_T, step = 1 ) %>%
+  select( t, step )
+
+.departures <- event_data %>%
+  filter( !is.na( departure_T ), departure_T != 0 ) %>%
+  mutate( t = departure_T, step = -1 ) %>%
+  select( t, step )
+
+.concurrent_event_count <- bind_rows( .arrivals, .departures ) %>%
+  arrange( t ) %>%
+  mutate( count = cumsum( step ))
+
+event_data <- event_data %>%
+  left_join( .concurrent_event_count, by=c('arrival_T' = 't' ) ) %>%
+  rename( 'concurrent_event_count' = 'count' ) %>% 
+  select( -'step' ) 
+```

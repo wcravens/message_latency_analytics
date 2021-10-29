@@ -155,6 +155,13 @@ queue <- bind_rows( in_queue, out_queue ) %>%
 plot( queue$t, queue$size, type="l", col="blue", pch=19, cex=0.5, main="Concurrent Event Count at Time t.", xlab='Time t in Nanoseconds', ylab="Concurrent event count" )
 hist( log( queue$size ), col="blue", main="Histogram of log( Concurrent Event Count )", xlab="log( Concurrent Event Count )")
 ```
+```{r viz_concurrent_vs_duration}
+
+plot( lag( event_data$concurrent_event_count), event_data$duration, col="blue", pch=19, cex=0.5, main="Impact of current queue size on new message's eventual latency.",
+      xlab="Message Queue Size when New Message Arrived", ylab="Latency Experienced by the New Message")
+```
+
+
 <!-- Scratch Notes Below
 # H0 (null): The data was produced in a random manner.
 # Ha (alternative): The data was not produced in a random manner.
